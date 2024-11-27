@@ -1,7 +1,6 @@
 import knex from 'knex'
 import { database } from '../config/index.config.js'
 
-
 const db = knex({
     client: 'pg',
     connection: {

@@ -4,21 +4,22 @@
  */
 export async function up(knex) {
     await knex.schema.createTable('users', function (table) {
-      table.increments('id').primary(); // Avtomatik raqamlanadigan ID
-      table.string('email').notNullable().unique(); // Email maydoni (takrorlanmas)
-      table.string('password').notNullable(); // Parol
-      table.enum('role', ['admin', 'user']).notNullable().defaultTo('user'); // Rol (admin yoki user)
-      table.string('first_name').notNullable(); // Ism
-      table.string('last_name').notNullable(); // Familiya
-      table.timestamps(true, true); // created_at va updated_at ustunlari
-    });
-  }
-  
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  export async function down(knex) {
-    await knex.schema.dropTable('users'); // Jadvalni o'chirish
-  }
-  
+        table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
+        table.string('name')
+        table.string('email').notNullable()
+        table.string('password').notNullable()
+        table
+            .enum('role', ['admin', 'job_seeker', 'recruiter'])
+            .defaultTo('job_seeker')
+        table.enum('status', ['active', 'inactive']).defaultTo('inactive')
+        table.timestamps(true, true)
+    })
+}
+
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export async function down(knex) {
+    await knex.schema.dropTable('users')
+}
