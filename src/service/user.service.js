@@ -118,18 +118,18 @@ export const forgetPasswordService = async (userData) => {
         const otp = otpGenerator()
         const result = await updateOtp(id, otp)
         const { isUpdated, error } = result
-        
+
         if (!isUpdated) {
             return { success: false, error }
         }
-        
+
         await sendMail(
             email,
             'Otp for change password',
             `<p><b>This key for updating your password: ${otp}</b></p>
-            <p>"http://localhost:3000/api/v1/auth/change/password/${userData.id}"</p>`
+            <p>"http://localhost:3000/api/v1/auth/change/password/${userData.id}"</p>`,
         )
-        
+
         return { success: true }
     } catch (error) {
         return { success: false, error }
@@ -137,21 +137,21 @@ export const forgetPasswordService = async (userData) => {
 }
 export const changePasswordService = async (data, userId) => {
     try {
-        const {newPassword, userOtp} = data
+        const { newPassword, userOtp } = data
         const otpData = await findOtpById(userId)
         if (userOtp != otpData.otp_code) {
-            throw new Error("Otp code not valid");
+            throw new Error('Otp code not valid')
         }
         const hashPassword = await generateHashPassword(newPassword)
         const result = await updateUserPassword(userId, hashPassword)
-        const {isUpdated, error} = result
-        
+        const { isUpdated, error } = result
+
         if (!isUpdated) {
-            return {success:false, error}
+            return { success: false, error }
         }
-        return {success:true}
+        return { success: true }
     } catch (error) {
-        return {success:true, error}
+        return { success: true, error }
     }
 }
 

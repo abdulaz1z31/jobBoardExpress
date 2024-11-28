@@ -8,7 +8,7 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-import { database } from "./src/config/index.config.js"
+import { database } from './src/config/index.config.js'
 export default {
     development: {
         client: 'pg',

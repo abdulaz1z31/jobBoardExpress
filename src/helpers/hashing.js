@@ -1,9 +1,6 @@
-import { hash, genSalt, compare } from "bcrypt";
+import { hash, genSalt, compare } from 'bcrypt'
 
-
-const generateSalt = async() => genSalt(10)
-
-
+const generateSalt = async () => genSalt(10)
 
 export const generateHashPassword = async (password) => {
     const salt = await generateSalt()

@@ -53,13 +53,13 @@ export const loginUser = async (req, res, next) => {
         const { success, error, token } = result
         if (success) {
             return res.status(statusCode.OK).send({
-                messgae:"Logged in successfully",
-                token
+                messgae: 'Logged in successfully',
+                token,
             })
         }
         return res.status(statusCode.BAD_REQUEST).send({
-            message:"Fail",
-            error:error.message
+            message: 'Fail',
+            error: error.message,
         })
     } catch (error) {
         next(error)
@@ -69,16 +69,16 @@ export const loginUser = async (req, res, next) => {
 export const getUserProfile = async (req, res, next) => {
     try {
         const result = await getUserProfileService(req.user)
-        const {success, error, user} = result
+        const { success, error, user } = result
         if (success) {
             return res.status(statusCode.OK).send({
-                message:"Success",
-                user
+                message: 'Success',
+                user,
             })
         }
         return res.status(statusCode.INTERNAL_SERVER_ERROR).send({
-            message:"Fail",
-            error:error.message
+            message: 'Fail',
+            error: error.message,
         })
     } catch (error) {
         next(error)
@@ -90,8 +90,8 @@ export const updateToken = async (req, res, next) => {
         const refreshToken = req.body.refreshToken
         const token = await updateTokenService(refreshToken)
         return res.status(statusCode.OK).send({
-            message:"success",
-            token
+            message: 'success',
+            token,
         })
     } catch (error) {
         next(error)
@@ -100,7 +100,6 @@ export const updateToken = async (req, res, next) => {
 
 export const logOut = async (req, res, next) => {
     try {
-        
     } catch (error) {
         next(error)
     }
@@ -108,18 +107,18 @@ export const logOut = async (req, res, next) => {
 
 export const forgetPassword = async (req, res, next) => {
     try {
-       const result = await forgetPasswordService(req.user) 
-       const {success, error} = result
-      
-       if (!success) {
-        return res.status(statusCode.BAD_REQUEST).send({
-            message:"Fail",
-            error:error
+        const result = await forgetPasswordService(req.user)
+        const { success, error } = result
+
+        if (!success) {
+            return res.status(statusCode.BAD_REQUEST).send({
+                message: 'Fail',
+                error: error,
+            })
+        }
+        return res.status(statusCode.OK).send({
+            message: 'We send link and opt code for change password',
         })
-       }
-       return res.status(statusCode.OK).send({
-        message:"We send link and opt code for change password"
-       })
     } catch (error) {
         next(error)
     }
@@ -128,16 +127,16 @@ export const forgetPassword = async (req, res, next) => {
 export const changePassword = async (req, res, next) => {
     try {
         const result = await changePasswordService(req.body, req.params.id)
-        const {success, error} = result
-        
+        const { success, error } = result
+
         if (!success) {
             return res.status(statusCode.BAD_REQUEST).send({
-                message:"fail",
-                error
+                message: 'fail',
+                error,
             })
         }
         return res.status(statusCode.OK).send({
-            message:"password changed successfully"
+            message: 'password changed successfully',
         })
     } catch (error) {
         next(error)
