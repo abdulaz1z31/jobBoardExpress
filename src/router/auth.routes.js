@@ -1,10 +1,31 @@
 import { Router } from 'express'
-import { loginUser, registerUser } from '../controller/index.controller.js'
-import { validationMiddleware } from '../middleware/validation.schema.js'
-import { registerSchema } from '../validations/register.schema.js'
-import { loginSchema } from '../validations/login.schema.js'
+import {
+    changePassword,
+    forgetPassword,
+    getUserProfile,
+    loginUser,
+    logOut,
+    registerUser,
+    updateToken,
+    verifyUser,
+} from '../controller/index.controller.js'
+import {
+    checkToken,
+    validationMiddleware,
+} from '../middleware/index.middleware.js'
+import {
+    loginSchema,
+    registerSchema,
+    verifySchema,
+} from '../validations/index.schema.js'
 
 export const authRouter = Router()
 
-authRouter.post('/register',validationMiddleware(registerSchema), registerUser)
+authRouter.post('/register', validationMiddleware(registerSchema), registerUser)
+authRouter.post('/verify-otp', validationMiddleware(verifySchema), verifyUser)
 authRouter.post('/login', validationMiddleware(loginSchema), loginUser)
+authRouter.get('/me', checkToken, getUserProfile)
+authRouter.get('/logout', checkToken, logOut) 
+authRouter.post('/refresh-token', updateToken)
+authRouter.get("/forget/password", checkToken, forgetPassword) 
+authRouter.post("/change/password/:id", checkToken, changePassword) 
