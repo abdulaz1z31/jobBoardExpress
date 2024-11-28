@@ -8,15 +8,16 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+import { database } from "./src/config/index.config.js"
 export default {
     development: {
         client: 'pg',
         connection: {
-            host: '127.0.0.1',
-            port: 5432,
-            user: 'postgres',
-            password: 'root',
-            database: 'job',
+            host: database.host,
+            port: database.port,
+            user: database.user,
+            password: database.password,
+            database: database.database,
         },
     },
 
