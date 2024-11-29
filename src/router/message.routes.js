@@ -7,7 +7,6 @@ import {
     updateMessage,
 } from '../controller/index.controller.js'
 import {
-    adminOrSelf,
     checkToken,
     roleGuard,
     validationMiddleware,
@@ -16,7 +15,12 @@ import { messageSchema } from '../validations/message.schema.js'
 
 export const messageRouter = Router()
 
-messageRouter.post('/send/:id',checkToken,validationMiddleware(messageSchema),sendMessage)
+messageRouter.post(
+    '/send/:id',
+    checkToken,
+    validationMiddleware(messageSchema),
+    sendMessage,
+)
 messageRouter.get('/', checkToken, roleGuard('admin'), getAllMessages)
 messageRouter.get('/:id', checkToken, roleGuard('admin'), getMessage)
 messageRouter.put('/:id', checkToken, roleGuard('admin'), updateMessage)
