@@ -154,6 +154,34 @@ export const changePasswordService = async (data, userId) => {
         return { success: true, error }
     }
 }
+export const getAllUsersService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
+export const getUserByIdService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
+export const updateUserByIdService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
+export const deleteUserByIdService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
 
 const createOtp = async (otp_code, user_id) => {
     try {
