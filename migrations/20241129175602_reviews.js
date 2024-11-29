@@ -19,7 +19,7 @@ export async function up(knex) {
             .inTable('companies')
             .onDelete('CASCADE')
             .onUpdate('CASCADE')
-        table.integer('rainting').notNullable()
+        table.integer('rating').notNullable()
         table.text('comment').notNullable()
         table.enu('status', ['approved', 'pending', 'rejected'])
         table.timestamps(true, true)

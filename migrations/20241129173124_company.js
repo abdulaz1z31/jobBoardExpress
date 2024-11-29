@@ -5,7 +5,7 @@
 export async function up(knex) {
     await knex.schema.createTable('companies', function (table) {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
-        table.string('name').notNullable()
+        table.string('name').notNullable().unique()
         table.text('description').notNullable()
         table.string('website').notNullable()
         table.string('location').notNullable()

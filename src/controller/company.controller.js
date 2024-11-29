@@ -5,14 +5,18 @@ import {
     getByICompanyService,
     updateCompanyService,
 } from '../service/index.service.js'
-
+import { logger } from '../utils/index.utils.js'
 export const getAllCompanyController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/application/all METHOD : GET')
         const currentApplication = await getAllCompanyService()
         if (!currentApplication) {
-            res.send('All')
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentApplication,
+        })
     } catch (error) {
         logger.error('Router /api/v1/application/all METHOD : GET')
         next(error)
