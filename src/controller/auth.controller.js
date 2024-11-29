@@ -13,7 +13,7 @@ export const registerUser = async (req, res, next) => {
     try {
         const result = await registerUserService(req.body)
         const { success, error, userId } = result
-
+        
         if (success) {
             return res.status(statusCode.CREATED).send({
                 message: 'Success',
@@ -100,6 +100,10 @@ export const updateToken = async (req, res, next) => {
 
 export const logOut = async (req, res, next) => {
     try {
+        return res.send({
+            message:"Success",
+            status:"You looged in successfully"
+        })
     } catch (error) {
         next(error)
     }
