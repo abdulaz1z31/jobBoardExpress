@@ -9,46 +9,46 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 export default {
-  development: {
-      client: 'pg',
-      connection: {
-          host: '127.0.0.1',
-          port: 5432,
-          user: 'postgres',
-          password: 'root',
-          database: 'job',
-      },
-  },
+    development: {
+        client: 'pg',
+        connection: {
+            host: 'localhost',
+            port: 5432,
+            user: 'postgres',
+            password: '1111',
+            database: 'job',
+        },
+    },
 
-  staging: {
-      client: 'postgresql',
-      connection: {
-          database: 'my_db',
-          user: 'username',
-          password: 'password',
-      },
-      pool: {
-          min: 2,
-          max: 10,
-      },
-      migrations: {
-          tableName: 'knex_migrations',
-      },
-  },
+    staging: {
+        client: 'postgresql',
+        connection: {
+            database: 'my_db',
+            user: 'username',
+            password: 'password',
+        },
+        pool: {
+            min: 2,
+            max: 10,
+        },
+        migrations: {
+            tableName: 'knex_migrations',
+        },
+    },
 
-  production: {
-      client: 'postgresql',
-      connection: {
-          database: 'my_db',
-          user: 'username',
-          password: 'password',
-      },
-      pool: {
-          min: 2,
-          max: 10,
-      },
-      migrations: {
-          tableName: 'knex_migrations',
-      },
-  },
+    production: {
+        client: 'postgresql',
+        connection: {
+            database: 'my_db',
+            user: 'username',
+            password: 'password',
+        },
+        pool: {
+            min: 2,
+            max: 10,
+        },
+        migrations: {
+            tableName: 'knex_migrations',
+        },
+    },
 }

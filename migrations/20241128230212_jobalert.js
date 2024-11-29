@@ -3,19 +3,24 @@
  * @returns { Promise<void> }
  */
 export async function up(knex) {
+    await knex.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
     await knex.schema.createTable('jobalert', function (table) {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
         table
-            .integer('job_id')
+            .uuid('job_id')
             .unsigned()
             .references('id')
             .inTable('joblisting')
+            .onDelete(`CASCADE`)
+            .onUpdate(`CASCADE`)
             .notNullable()
         table
-            .integer('user_id')
+            .uuid('user_id')
             .unsigned()
             .references('id')
             .inTable('users')
+            .onDelete(`CASCADE`)
+            .onUpdate(`CASCADE`)
             .notNullable()
         table.timestamps(true, true)
     })
