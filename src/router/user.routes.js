@@ -3,7 +3,7 @@ import { deleteUserById, getAllUsers, getUserById, updateUserById } from '../con
 
 export const userRouter = Router()
 
-userRouter.get('/all', getAllUsers)
+userRouter.get('/', getAllUsers)
 userRouter.get('/:id', getUserById)
 userRouter.put('/:id', updateUserById)
 userRouter.use('/:id', deleteUserById)
