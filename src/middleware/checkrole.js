@@ -13,8 +13,8 @@ export const roleGuard = (...roles) => {
         } catch (error) {
             logger.error('Server Error')
             res.status(500).send({
-                status:"Server error",
-                error
+                status: 'Server error',
+                error,
             })
         }
     }
@@ -38,8 +38,8 @@ export const adminOrSelf = (...roles) => {
         } catch (error) {
             logger.error('Server Error')
             res.status(500).send({
-                status:"Server error",
-                error
+                status: 'Server error',
+                error,
             })
         }
     }
