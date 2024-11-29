@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = async function (knex) {
+export async function up(knex) {
     await knex.schema.createTable('jobalert', function (table) {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
         table
@@ -25,6 +25,6 @@ exports.up = async function (knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = async function (knex) {
+export async function down(knex) {
     await knex.schema.dropTable('jobalert')
 }
