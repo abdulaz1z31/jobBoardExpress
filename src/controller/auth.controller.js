@@ -100,6 +100,10 @@ export const updateToken = async (req, res, next) => {
 
 export const logOut = async (req, res, next) => {
     try {
+        return res.send({
+            message: 'Success',
+            status: 'You looged in successfully',
+        })
     } catch (error) {
         next(error)
     }

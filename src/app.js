@@ -13,4 +13,16 @@ app.use('/categories', categoryRouter)
 app.use('/api/v1', router)
 
 
+app.use((req, res) => {
+    return res.status(404).send({
+        message: 'Not Found',
+    })
+})
+app.use((error, req, res, next) => {
+    if (error) {
+        return res.status(500).send({
+            error,
+        })
+    }
+})
 export default app
