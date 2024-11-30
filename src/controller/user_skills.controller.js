@@ -4,7 +4,7 @@ import {
     getUserSkillService,
     updateUserSkillService,
     deleteUserSkillService,
-} from '../service/userSkill.service.js'
+} from '../service/index.service.js'
 import { statusCode } from '../utils/statuscodes.js'
 
 export const createUserSkill = async (req, res, next) => {
