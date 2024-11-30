@@ -8,6 +8,7 @@ import {
 } from '../controller/index.controller.js'
 import {
     checkToken,
+    pagination,
     roleGuard,
     validationMiddleware,
 } from '../middleware/index.middleware.js'
@@ -22,7 +23,7 @@ skillsRouter.post(
     roleGuard('admin'),
     createSkill,
 )
-skillsRouter.get('/', checkToken, roleGuard('admin'), getAllSkills)
+skillsRouter.get('/', checkToken, roleGuard('admin'), pagination, getAllSkills)
 skillsRouter.get('/:id', checkToken, roleGuard('admin'), getSkill)
 skillsRouter.put('/:id', checkToken, roleGuard('admin'), updateSkill)
 skillsRouter.delete('/:id', checkToken, roleGuard('admin'), deleteSkill)

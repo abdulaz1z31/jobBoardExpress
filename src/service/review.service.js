@@ -1,8 +1,8 @@
 import { db } from '../database/index.database.js'
 
-export const getAllReviewService = async () => {
+export const getAllReviewService = async ({skip, limit}) => {
     try {
-        const data = await db.select('*').from('review').returning('*')
+        const data = await db.select('*').from('review').returning('*').offset(skip).limit(limit)
         if (!data) {
             throw new Error('Error')
         }

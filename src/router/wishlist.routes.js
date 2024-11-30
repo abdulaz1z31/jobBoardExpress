@@ -6,10 +6,10 @@ import {
     updateWishlistCon,
     deleteWishlistCon,
 } from '../controller/index.controller.js'
-import { validationMiddleware } from '../middleware/index.middleware.js'
+import { pagination, validationMiddleware } from '../middleware/index.middleware.js'
 export const wishlistRouter = Router()
 
-wishlistRouter.get('/', getAllWishlistsCon)
+wishlistRouter.get('/', pagination, getAllWishlistsCon)
 wishlistRouter.get('/:id', getWishlistsByIdCon)
 wishlistRouter.post('/', createWishlistCon)
 wishlistRouter.put('/:id', updateWishlistCon)

@@ -6,10 +6,11 @@ import {
     getByIdReviewController,
     updateIdReviewController,
 } from '../controller/index.controller.js'
+import { pagination } from '../middleware/pagination.js'
 
 export const reviewRouter = Router()
 
-reviewRouter.get('/', getAllReviewController)
+reviewRouter.get('/', pagination, getAllReviewController)
 reviewRouter.get('/:id', getByIdReviewController)
 reviewRouter.post('/create', createReviewController)
 reviewRouter.put('/update/:id', updateIdReviewController)

@@ -9,7 +9,7 @@ import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllCategoriesCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/categories METHOD: GET`)
-        const categories = await getAllCategoriesService()
+        const categories = await getAllCategoriesService(req.pagination)
         res.status(statusCode.OK).send({
             msg: 'OK',
             Categories: categories,

@@ -9,7 +9,7 @@ import { logger } from '../utils/index.utils.js'
 export const getAllCompanyController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/company/ METHOD : GET')
-        const currentComany = await getAllCompanyService()
+        const currentComany = await getAllCompanyService(req.pagination)
         if (!currentComany) {
             return res.status(404).send('Not found!!!')
         }
