@@ -1,16 +1,16 @@
 import { Router } from 'express'
 import {
-    createCompanyController,
-    deleteCompanyController,
-    getAllCompanyController,
-    getByIdCompanyController,
-    updateIdCompanyController,
+    createReviewController,
+    deleteReviewController,
+    getAllReviewController,
+    getByIdReviewController,
+    updateIdReviewController,
 } from '../controller/index.controller.js'
 
 export const reviewRouter = Router()
 
-reviewRouter.get('/', getAllCompanyController)
-reviewRouter.get('/:id', getByIdCompanyController)
-reviewRouter.post('/create', createCompanyController)
-reviewRouter.put('/update/:id', updateIdCompanyController)
-reviewRouter.delete('/delete/:id', deleteCompanyController)
+reviewRouter.get('/', getAllReviewController)
+reviewRouter.get('/:id', getByIdReviewController)
+reviewRouter.post('/create', createReviewController)
+reviewRouter.put('/update/:id', updateIdReviewController)
+reviewRouter.delete('/delete/:id', deleteReviewController)
