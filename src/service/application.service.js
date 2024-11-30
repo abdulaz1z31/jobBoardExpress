@@ -42,6 +42,7 @@ export const updateApplicationService = async (id, body) => {
         const updateData = await db('application')
             .where('id', '=', id)
             .update(body)
+            .returning('*')
         if (!updateData[0]) {
             throw new Error('Error')
         }

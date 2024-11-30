@@ -39,7 +39,10 @@ export const createReviewService = async (body) => {
 }
 export const updateReviewService = async (id, body) => {
     try {
-        const updateData = await db('review').where('id', '=', id).update(body)
+        const updateData = await db('review')
+            .where('id', '=', id)
+            .update(body)
+            .returning('*')
         if (!updateData[0]) {
             throw new Error('Error')
         }
