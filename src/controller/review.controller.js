@@ -1,69 +1,89 @@
 import {
-    createCompanyService,
-    deleteCompanyService,
-    getAllCompanyService,
-    getByICompanyService,
-    updateCompanyService,
+    createReviewService,
+    deleteReviewService,
+    getAllReviewService,
+    getByIReviewService,
+    updateReviewService,
 } from '../service/index.service.js'
-
+import { logger } from '../utils/index.utils.js'
 export const getAllReviewController = async (req, res, next) => {
     try {
-        logger.info('Router /api/v1/application/all METHOD : GET')
-        const currentApplication = await getAllCompanyService()
-        if (!currentApplication) {
-            res.send('All')
+        logger.info('Router /api/v1/review/ METHOD : GET')
+        const currentReview = await getAllReviewService()
+        if (!currentReview) {
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentReview,
+        })
+
     } catch (error) {
-        logger.error('Router /api/v1/application/all METHOD : GET')
+        logger.error('Router /api/v1/review/all METHOD : GET')
         next(error)
     }
 }
-
 export const getByIdReviewController = async (req, res, next) => {
     try {
-        logger.info('Router /api/v1/application/:id METHOD : GET')
-        const currentApplication = await getByICompanyService(req.params.id)
-        if (!currentApplication) {
-            res.send('By/id')
+        logger.info('Router /api/v1/review/:id METHOD : GET')
+        const currentReview = await getByIReviewService(req.params.id)
+        if (!currentReview) {
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentReview,
+        })
     } catch (error) {
-        logger.error('Router /api/v1/application/:id METHOD : GET')
+        logger.error('Router /api/v1/review/:id METHOD : GET')
         next(error)
     }
 }
 export const createReviewController = async (req, res, next) => {
     try {
-        logger.info('Router /api/v1/application/create METHOD : POST')
-        const currentApplication = await createCompanyService(req.body)
-        if (!currentApplication) {
-            res.send('create')
+        logger.info('Router /api/v1/review/create METHOD : POST')
+        const currentReview = await createReviewService(req.body)
+        if (!currentReview) {
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentReview,
+        })
     } catch (error) {
-        logger.error('Router /api/v1/application/create METHOD : POST')
+        logger.error('Router /api/v1/review/create METHOD : POST')
         next(error)
     }
 }
 export const updateIdReviewController = async (req, res, next) => {
     try {
-        logger.info('Router /api/v1/application/update/:id METHOD : UPDATE')
-        const currentApplication = await updateCompanyService(req.params.id)
-        if (!currentApplication) {
-            res.send('Update')
+        logger.info('Router /api/v1/review/update/:id METHOD : PUT')
+        const currentReview = await updateReviewService(req.params.id)
+        if (!currentReview) {
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentReview,
+        })
     } catch (error) {
-        logger.error('Router /api/v1/application/update/:id METHOD : UPDATE')
+        logger.error('Router /api/v1/review/update/:id METHOD : PUT')
         next(error)
     }
 }
 export const deleteReviewController = async (req, res, next) => {
     try {
-        logger.info('Router /api/v1/application/delete/:id METHOD : UPDATE')
-        const currentApplication = await deleteCompanyService(req.params.id)
-        if (!currentApplication) {
-            res.send('Delete')
+        logger.info('Router /api/v1/review/delete/:id METHOD : DELETE')
+        const currentReview = await deleteReviewService(req.params.id)
+        if (!currentReview) {
+            return res.status(404).send('Not found!!!')
         }
+        return res.status(201).send({
+            message: 'Ok',
+            data: currentReview,
+        })
     } catch (error) {
-        logger.error('Router /api/v1/application/delete/:id METHOD : UPDATE')
+        logger.error('Router /api/v1/review/delete/:id METHOD : DELETE')
         next(error)
     }
 }
