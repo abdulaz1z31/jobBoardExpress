@@ -13,7 +13,6 @@ export const joblistingScheme = z.object({
             .refine((val, ctx) => val >= ctx.parent.min, {
                 message: 'Max must be greater than or equal to Min',
             }),
-        currency: z.string().optional(),
     }),
     employmentType: z.enum([
         'full_time',
@@ -22,6 +21,10 @@ export const joblistingScheme = z.object({
         'temporary',
         'intership',
     ]),
-    requirements: z.record(z.any()),
+    requirements: z.object({
+        education: z.string(),
+        skills: z.array(z.string()),
+    }),
     status: z.enum(['open', 'closed']).default('open'),
+    postedBy: z.string().uuid(),
 })

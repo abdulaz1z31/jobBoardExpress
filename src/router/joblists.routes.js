@@ -6,10 +6,22 @@ import {
     updateJobListCon,
     deleteJobListCon,
 } from '../controller/index.controller.js'
-import { pagination, validationMiddleware } from '../middleware/index.middleware.js'
+import {
+    pagination,
+    validationMiddleware,
+} from '../middleware/index.middleware.js'
+import { joblistingScheme } from '../validations/index.schema.js'
 export const joblistRouter = Router()
 joblistRouter.get('/', pagination, getAllJobListsCon)
 joblistRouter.get('/:id', getJobListsByIdCon)
-joblistRouter.post('/', createJobListCon)
-joblistRouter.put('/:id', updateJobListCon)
+joblistRouter.post(
+    '/',
+    // validationMiddleware(joblistingScheme),
+    createJobListCon,
+)
+joblistRouter.put(
+    '/:id',
+    // validationMiddleware(joblistingScheme),
+    updateJobListCon,
+)
 joblistRouter.delete('/:id', deleteJobListCon)
