@@ -22,4 +22,3 @@ categoryRouter.post('/new', checkCategoryDataMiddleware(categorySchema), createC
 categoryRouter.put('/update/:id', updateCategoryDataMiddleware(categorySchema), updateCategories);
 categoryRouter.delete('/delete/:id', deleteCategory);
 
-export default categoryRouter;

@@ -22,7 +22,7 @@ export async function up(knex) {
         table.string('resume_url').notNullable()
         table.text('cover_letter').notNullable()
         table
-            .enu('resume_url', [
+            .enu('status', [
                 'submitted',
                 'reviewed',
                 'interviewing',
