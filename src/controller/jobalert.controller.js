@@ -61,7 +61,7 @@ export const createJobAlertCon = async (req, res, next) => {
             `Routes: /api/v1/jobalert METHOD: POST,Error: ${error.message}`,
         )
         if (error.message === 'Jobalert not created') {
-            return res.status(statusCode.NOT_FOUND).send({
+            return res.status(statusCode.BAD_REQUEST).send({
                 error: true,
                 message: error.message,
             })
@@ -85,7 +85,7 @@ export const updateJobAlertCon = async (req, res, next) => {
             `Routes: /api/v1/jobalert/${req.params.id} METHOD: PUT,Error: ${error.message}`,
         )
         if (error.message === 'Jobalert not updated') {
-            return res.status(statusCode.NOT_FOUND).send({
+            return res.status(statusCode.BAD_REQUEST).send({
                 error: true,
                 message: error.message,
             })
@@ -106,7 +106,7 @@ export const deleteJobAlertCon = async (req, res, next) => {
             `Routes: /api/v1/jobalert/${req.params.id} METHOD: DELETE,Error: ${error.message}`,
         )
         if (error.message === 'Jobalert not deleted') {
-            return res.status(statusCode.NOT_FOUND).send({
+            return res.status(statusCode.BAD_REQUEST).send({
                 error: true,
                 message: error.message,
             })

@@ -18,6 +18,12 @@ export const getAllJobListsCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/joblists METHOD: GET,Error: ${error.message}`,
         )
+        if (error.message === 'Joblists not found') {
+            return res.status(statusCode.NOT_FOUND).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -33,6 +39,12 @@ export const getJobListsByIdCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/joblists/${req.params.id} METHOD: GET,Error: ${error.message}`,
         )
+        if (error.message === 'Joblist not found') {
+            return res.status(statusCode.NOT_FOUND).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -48,6 +60,12 @@ export const createJobListCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/joblists METHOD: POST,Error: ${error.message}`,
         )
+        if (error.message === 'Joblist not created') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -66,6 +84,12 @@ export const updateJobListCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/joblists/${req.params.id} METHOD: PUT,Error: ${error.message}`,
         )
+        if (error.message === 'Joblist not updated') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -81,6 +105,12 @@ export const deleteJobListCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/joblists/${req.params.id} METHOD: DELETE,Error: ${error.message}`,
         )
+        if (error.message === 'Joblist not deleted') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }

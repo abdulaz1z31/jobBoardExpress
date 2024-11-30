@@ -18,6 +18,12 @@ export const getAllWishlistsCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/wishlist METHOD: GET,Error: ${error.message}`,
         )
+        if (error.message === 'Wishlists not found') {
+            return res.status(statusCode.NOT_FOUND).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -33,6 +39,12 @@ export const getWishlistsByIdCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/wishlist/${req.params.id} METHOD: GET,Error: ${error.message}`,
         )
+        if (error.message === 'Wishlist not found') {
+            return res.status(statusCode.NOT_FOUND).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -48,6 +60,12 @@ export const createWishlistCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/wishlist METHOD: POST,Error: ${error.message}`,
         )
+        if (error.message === 'Wishlist not created') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -66,6 +84,12 @@ export const updateWishlistCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/wishlist/${req.params.id} METHOD: PUT,Error: ${error.message}`,
         )
+        if (error.message === 'Wishlist not updated') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
@@ -81,6 +105,12 @@ export const deleteWishlistCon = async (req, res, next) => {
         logger.error(
             `Routes: /api/v1/wishlist/${req.params.id} METHOD: DELETE,Error: ${error.message}`,
         )
+        if (error.message === 'Wishlist not deleted') {
+            return res.status(statusCode.BAD_REQUEST).send({
+                error: true,
+                message: error.message,
+            })
+        }
         next(error.message)
     }
 }
