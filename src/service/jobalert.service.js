@@ -36,8 +36,8 @@ export const createJobAlertService = async (body) => {
 export const updateJobAlertService = async (id, body) => {
     try {
         const data = await db('jobalert')
-            .update({ ...body })
             .where('id', id)
+            .update({ ...body })
             .returning('*')
         checkData(data[0], 'Jobalert not updated')
         return data[0]

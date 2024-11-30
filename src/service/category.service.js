@@ -36,8 +36,8 @@ export const createCategoryService = async (body) => {
 export const updateCategoryService = async (id, body) => {
     try {
         const data = await db('categories')
-            .update({ ...body })
             .where('id', id)
+            .update({ ...body })
             .returning('*')
         checkData(data[0], 'Category not updated')
         return data[0]
