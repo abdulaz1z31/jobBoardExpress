@@ -53,7 +53,7 @@ export const createJobListCon = async (req, res, next) => {
 }
 export const updateJobListCon = async (req, res, next) => {
     try {
-        logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: GET`)
+        logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: PUT`)
         const updatedJoblist = await updateJoblistService(
             req.params.id,
             req.body,
@@ -71,7 +71,7 @@ export const updateJobListCon = async (req, res, next) => {
 }
 export const deleteJobListCon = async (req, res, next) => {
     try {
-        logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: GET`)
+        logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: DELETE`)
         const deletedJoblist = await deleteJoblistService(req.params.id)
         res.status(statusCode.OK).send({
             msg: 'DELETED JOBLIST',

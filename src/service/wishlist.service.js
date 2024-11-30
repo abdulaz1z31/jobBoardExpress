@@ -1,105 +1,56 @@
-import knex from '../database/knex.js';
-import { logger } from '../utils/logger.utils.js';
-
-/**
- *
- * @returns {Promise<Array>}
- */
-export const getAllWhishlists = async () => {
-    try {
-        const result = await knex('whishlist').select('*');
-        return result;
-    } catch (error) {
-        logger.error(error.message);
-        throw new Error('Error fetching all wishlist items');
+import { db } from '../database/index.database.js'
+function checkData(data, errorMessage) {
+    if (!data || data.length === 0) {
+        throw new Error(errorMessage)
     }
-};
-
-/**
- *
- * @param {number} id
- * @returns {Promise<Object>}
- */
-export const getWhishlistById = async (id) => {
+}
+export const getAllWishlistsService = async () => {
     try {
-        const result = await knex('whishlist').where({ id }).first();
-        if (!result) {
-            throw new Error('Wishlist item not found');
-        }
-        return result;
+        const data = await db.select('*').from('wishlist')
+        checkData(data, 'Wishlists not found')
+        return data
     } catch (error) {
-        logger.error(error.message);
-        throw new Error(error.message || 'Error fetching wishlist item');
+        throw new Error(error.message)
     }
-};
-
-/**
- *
- * @param {Object} data
- * @returns {Promise<Object>}
- */
-export const createWhishlist = async (data) => {
+}
+export const getWishlistByIdService = async (id) => {
     try {
-        const { user_id, product_id, create_at, update_at } = data;
-        const [newWhishlist] = await knex('whishlist')
-            .insert({
-                user_id,
-                product_id,
-                create_at,
-                update_at
-            })
-            .returning('*');
-        return newWhishlist;
+        const data = await db.select('*').from('wishlist').where('id', id)
+        checkData(data[0], 'Wishlist not found')
+        return data[0]
     } catch (error) {
-        logger.error(error.message);
-        throw new Error('Error creating wishlist item');
+        throw new Error(error.message)
     }
-};
-
-/**
- *
- * @param {number} id
- * @param {Object} data 
- * @returns {Promise<Object>}
- */
-export const updateWhishlist = async (id, data) => {
+}
+export const createWishlistService = async (body) => {
     try {
-        const { user_id, product_id, update_at } = data;
-        const [updatedWhishlist] = await knex('whishlist')
-            .where({ id })
-            .update({
-                user_id,
-                product_id,
-                update_at
-            })
-            .returning('*');
-        if (!updatedWhishlist) {
-            throw new Error('Wishlist item not found');
-        }
-        return updatedWhishlist;
+        const data = await db('wishlist')
+            .insert({ ...body })
+            .returning('*')
+        checkData(data[0], 'Wishlist not created')
+        return data[0]
     } catch (error) {
-        logger.error(error.message);
-        throw new Error('Error updating wishlist item');
+        throw new Error(error.message)
     }
-};
-
-/**
- *
- * @param {number} id
- * @returns {Promise<Object>}
- */
-export const deleteWhishlist = async (id) => {
+}
+export const updateWishlistService = async (id, body) => {
     try {
-        const [deletedWhishlist] = await knex('whishlist')
-            .where({ id })
-            .del()
-            .returning('*');
-        if (!deletedWhishlist) {
-            throw new Error('Wishlist item not found');
-        }
-        return deletedWhishlist;
+        const data = await db('wishlist')
+            .update({ ...body })
+            .where('id', id)
+            .returning('*')
+        checkData(data[0], 'Wishlist not updated')
+        return data[0]
     } catch (error) {
-        logger.error(error.message);
-        throw new Error('Error deleting wishlist item');
+        throw new Error(error.message)
     }
-};
+}
+export const deleteWishlistService = async (id) => {
+    try {
+        const data = await db('wishlist').where('id', id).del().returning('*')
+        checkData(data[0], 'Wishlist not deleted')
+        return data[0]
+    } catch (error) {
+        throw new Error(error.message)
+    }
+}
