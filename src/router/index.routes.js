@@ -9,6 +9,8 @@ import { jobalertRouter } from './jobalert.routes.js'
 import { joblistRouter } from './joblists.routes.js'
 import { categoryRouter } from './category.routes.js'
 import { wishlistRouter } from './wishlist.routes.js'
+import { skillsRouter } from './skills.routes.js'
+import { userSkillsRouter } from './user_skills.routes.js'
 
 export const router = Router()
 
@@ -22,3 +24,5 @@ router.use('/joblists', joblistRouter)
 router.use('/jobalert', jobalertRouter)
 router.use('/categories', categoryRouter)
 router.use('/wishlist', wishlistRouter)
+router.use('/skills', skillsRouter)
+router.use('/user_skills', userSkillsRouter)
