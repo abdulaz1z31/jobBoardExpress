@@ -25,8 +25,10 @@ export const getByICompanyService = async (id) => {
 }
 export const createCompanyService = async (body) => {
     try {
-        const data = await db('companies').insert({ ...body }).returning('*')
-        if(!data[0]){
+        const data = await db('companies')
+            .insert({ ...body })
+            .returning('*')
+        if (!data[0]) {
             throw new Error('Error')
         }
         return data[0]
@@ -37,8 +39,8 @@ export const createCompanyService = async (body) => {
 export const updateCompanyService = async (id, body) => {
     try {
         const data = await db('companies').where('id', '=', id).update(body)
-        if(data[0]){
-            throw new Error("Error")
+        if (data[0]) {
+            throw new Error('Error')
         }
         return data[0]
     } catch (error) {
@@ -48,8 +50,8 @@ export const updateCompanyService = async (id, body) => {
 export const deleteCompanyService = async (id) => {
     try {
         const data = await db('companies').where('id', '=', id).update(body)
-        if(data[0]){
-            throw new Error("Error")
+        if (data[0]) {
+            throw new Error('Error')
         }
         return data[0]
     } catch (error) {

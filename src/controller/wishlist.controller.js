@@ -1,66 +1,86 @@
-import { logger } from '../utils/logger.utils.js';
-import * as wishlistService from '../service/wishlist.service.js';
-
-export const getAllWhishlist = async (req, res) => {
+import {
+    getAllWishlistsService,
+    getWishlistByIdService,
+    createWishlistService,
+    updateWishlistService,
+    deleteWishlistService,
+} from '../service/index.service.js'
+import { logger, statusCode } from '../utils/index.utils.js'
+export const getAllWishlistsCon = async (req, res, next) => {
     try {
-        const result = await wishlistService.getAllWhishlists();
-        res.status(200).send(result);
+        logger.info(`Routes: /api/v1/wishlist METHOD: GET`)
+        const wishlists = await getAllWishlistsService()
+        res.status(statusCode.OK).send({
+            msg: 'OK',
+            Wishlists: wishlists,
+        })
     } catch (error) {
-        logger.error(error.message);
-        res.status(400).send({ error: error.message });
+        logger.error(
+            `Routes: /api/v1/wishlist METHOD: GET,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const getWhishlistById = async (req, res) => {
+}
+export const getWishlistsByIdCon = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const result = await wishlistService.getWhishlistById(id);
-        res.status(200).send(result);
+        logger.info(`Routes: /api/v1/wishlist/${req.params.id} METHOD: GET`)
+        const wishlist = await getWishlistByIdService(req.params.id)
+        res.status(statusCode.OK).send({
+            msg: 'OK',
+            Wishlist: wishlist,
+        })
     } catch (error) {
-        logger.error(error.message);
-        res.status(400).send({ error: error.message });
+        logger.error(
+            `Routes: /api/v1/wishlist/${req.params.id} METHOD: GET,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const createWhishlist = async (req, res) => {
+}
+export const createWishlistCon = async (req, res, next) => {
     try {
-        const { user_id, product_id, create_at, update_at } = req.body;
-        const result = await wishlistService.createWhishlist({
-            user_id,
-            product_id,
-            create_at,
-            update_at
-        });
-        res.status(201).send(result);
+        logger.info(`Routes: /api/v1/wishlist METHOD: POST`)
+        const newWishlist = await createWishlistService(req.body)
+        res.status(statusCode.CREATED).send({
+            msg: 'NEW WISHLIST',
+            newWishlist: newWishlist,
+        })
     } catch (error) {
-        logger.error(error.message);
-        res.status(400).send({ error: error.message });
+        logger.error(
+            `Routes: /api/v1/wishlist METHOD: POST,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const updateWhishlist = async (req, res) => {
+}
+export const updateWishlistCon = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const { user_id, product_id, update_at } = req.body;
-        const result = await wishlistService.updateWhishlist(id, {
-            user_id,
-            product_id,
-            update_at
-        });
-        res.status(200).send(result);
+        logger.info(`Routes: /api/v1/wishlist/${req.params.id} METHOD: PUT`)
+        const updatedWishlist = await updateWishlistService(
+            req.params.id,
+            req.body,
+        )
+        res.status(statusCode.OK).send({
+            msg: 'UPDATED WISHLIST',
+            updatedWishlist: updatedWishlist,
+        })
     } catch (error) {
-        logger.error(error.message);
-        res.status(400).send({ error: error.message });
+        logger.error(
+            `Routes: /api/v1/wishlist/${req.params.id} METHOD: PUT,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const deleteWhishlist = async (req, res) => {
+}
+export const deleteWishlistCon = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const result = await wishlistService.deleteWhishlist(id);
-        res.status(200).send(result);
+        logger.info(`Routes: /api/v1/wishlist/${req.params.id} METHOD: DELETE`)
+        const deletedWishlist = await deleteWishlistService(req.params.id)
+        res.status(statusCode.OK).send({
+            msg: 'DELETED WISHLIST',
+            deletedWishlist: deletedWishlist,
+        })
     } catch (error) {
-        logger.error(error.message);
-        res.status(400).send({ error: error.message });
+        logger.error(
+            `Routes: /api/v1/wishlist/${req.params.id} METHOD: DELETE,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
+}

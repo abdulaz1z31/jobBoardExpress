@@ -71,7 +71,7 @@ export const createJobAlertCon = async (req, res, next) => {
 }
 export const updateJobAlertCon = async (req, res, next) => {
     try {
-        logger.info(`Routes: /api/v1/jobalert/${req.params.id} METHOD: GET`)
+        logger.info(`Routes: /api/v1/jobalert/${req.params.id} METHOD: PUT`)
         const updatedJobAlert = await updateJobAlertService(
             req.params.id,
             req.body,
@@ -95,7 +95,7 @@ export const updateJobAlertCon = async (req, res, next) => {
 }
 export const deleteJobAlertCon = async (req, res, next) => {
     try {
-        logger.info(`Routes: /api/v1/jobalert/${req.params.id} METHOD: GET`)
+        logger.info(`Routes: /api/v1/jobalert/${req.params.id} METHOD: DELETE`)
         const deletedJobAlert = await deleteJobAlertService(req.params.id)
         res.status(statusCode.OK).send({
             msg: 'DELETED JOBALERT',

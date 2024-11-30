@@ -1,52 +1,88 @@
 import {
-    getAllCategoryService,
-    getOneCategoryByIdService,
+    getAllCategoriesService,
+    getCategoryByIdService,
     createCategoryService,
     updateCategoryService,
     deleteCategoryService,
-} from '../service/category.service';
-
-export const getAllCategories = async (req, res, next) => {
+} from '../service/index.service.js'
+import { logger, statusCode } from '../utils/index.utils.js'
+export const getAllCategoriesCon = async (req, res, next) => {
     try {
-        const allCategories = await getAllCategoryService();
-        res.status(200).send({ status: 'ok', data: allCategories });
+        logger.info(`Routes: /api/v1/categories METHOD: GET`)
+        const categories = await getAllCategoriesService()
+        res.status(statusCode.OK).send({
+            msg: 'OK',
+            Categories: categories,
+        })
     } catch (error) {
-        next(error);
+        logger.error(
+            `Routes: /api/v1/categories METHOD: GET,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const getOneCategoryById = async (req, res, next) => {
+}
+export const getCategorysByIdCon = async (req, res, next) => {
     try {
-        const oneCategory = await getOneCategoryByIdService(req.params.id);
-        res.status(200).send({ status: 'ok', data: oneCategory });
+        logger.info(`Routes: /api/v1/categories/${req.params.id} METHOD: GET`)
+        const category = await getCategoryByIdService(req.params.id)
+        res.status(statusCode.OK).send({
+            msg: 'OK',
+            Category: category,
+        })
     } catch (error) {
-        next(error);
+        logger.error(
+            `Routes: /api/v1/categories/${req.params.id} METHOD: GET,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const createCategories = async (req, res, next) => {
+}
+export const createCategoryCon = async (req, res, next) => {
     try {
-        const newCategory = await createCategoryService(req.body);
-        res.status(201).send({ status: 'Created', data: newCategory });
+        logger.info(`Routes: /api/v1/categories METHOD: POST`)
+        const newCategory = await createCategoryService(req.body)
+        res.status(statusCode.CREATED).send({
+            msg: 'NEW CATEGORY',
+            newCategory: newCategory,
+        })
     } catch (error) {
-        next(error);
+        logger.error(
+            `Routes: /api/v1/categories METHOD: POST,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const updateCategories = async (req, res, next) => {
+}
+export const updateCategoryCon = async (req, res, next) => {
     try {
-        const updatedData = await updateCategoryService(req.params.id, req.body);
-        res.status(202).send({ status: 'Updated', data: updatedData });
+        logger.info(`Routes: /api/v1/categories/${req.params.id} METHOD: PUT`)
+        const updatedCategory = await updateCategoryService(
+            req.params.id,
+            req.body,
+        )
+        res.status(statusCode.OK).send({
+            msg: 'UPDATED CATEGORY',
+            updatedCategory: updatedCategory,
+        })
     } catch (error) {
-        next(error);
+        logger.error(
+            `Routes: /api/v1/categories/${req.params.id} METHOD: PUT,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
-
-export const deleteCategory = async (req, res, next) => {
+}
+export const deleteCategoryCon = async (req, res, next) => {
     try {
-        const deletedCategory = await deleteCategoryService(req.params.id);
-        res.status(203).send({ status: 'deleted', data: deletedCategory });
+        logger.info(
+            `Routes: /api/v1/categories/${req.params.id} METHOD: DELETE`,
+        )
+        const deletedCategory = await deleteCategoryService(req.params.id)
+        res.status(statusCode.OK).send({
+            msg: 'DELETED CATEGORY',
+            deletedCategory: deletedCategory,
+        })
     } catch (error) {
-        next(error);
+        logger.error(
+            `Routes: /api/v1/categories/${req.params.id} METHOD: DELETE,Error: ${error.message}`,
+        )
+        next(error.message)
     }
-};
+}
