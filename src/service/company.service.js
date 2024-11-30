@@ -25,6 +25,7 @@ export const getByICompanyService = async (id) => {
 }
 export const createCompanyService = async (body) => {
     try {
+        console.log(body)
         const data = await db('companies')
             .insert({ ...body })
             .returning('*')
@@ -38,22 +39,28 @@ export const createCompanyService = async (body) => {
 }
 export const updateCompanyService = async (id, body) => {
     try {
-        const data = await db('companies').where('id', '=', id).update(body)
-        if (data[0]) {
+        const data = await db('companies')
+            .where('id', id)
+            .update(body)
+            .returning('*')
+        if (!data[0]) {
             throw new Error('Error')
         }
-        return data[0]
+        // console.log(data);
+        return data
     } catch (error) {
         throw new Error(error)
     }
 }
 export const deleteCompanyService = async (id) => {
     try {
-        const data = await db('companies').where('id', '=', id).update(body)
-        if (data[0]) {
+        console.log(id)
+        const data = await db('companies').where('id', id).del().returning('*')
+        console.log(data)
+        if (!data) {
             throw new Error('Error')
         }
-        return data[0]
+        return data
     } catch (error) {
         throw new Error(error)
     }

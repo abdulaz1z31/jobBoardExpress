@@ -41,7 +41,7 @@ export const getByIdCompanyController = async (req, res, next) => {
 }
 export const createCompanyController = async (req, res, next) => {
     try {
-        
+        console.log(req.body);
         logger.info('Router /api/v1/company/create METHOD : POST')
         const currentComany = await createCompanyService(req.body)
         if (!currentComany) {
@@ -59,7 +59,8 @@ export const createCompanyController = async (req, res, next) => {
 export const updateIdCompanyController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/company/update/:id METHOD : PUT')
-        const currentComany = await updateCompanyService(req.params.id)
+        const currentComany = await updateCompanyService(req.params.id, req.body)
+        console.log(currentComany);
         if (!currentComany) {
             return res.status(404).send('Not found!!!')
         }
