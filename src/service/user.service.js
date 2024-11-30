@@ -13,7 +13,8 @@ export const registerUserService = async (userData) => {
         const { username, password } = userData
 
         const user = await db('users').where('username', username)
-        if (user) {
+
+        if (user.length != 0) {
             throw new Error('User already exists')
         }
 
@@ -38,7 +39,6 @@ export const registerUserService = async (userData) => {
 
         return { success: false, error: check.error }
     } catch (error) {
-        console.error(error.message)
         return { success: false, error: error.message }
     }
 }
@@ -65,20 +65,20 @@ export const verifyUserService = async (userData) => {
 }
 export const loginUserService = async (userData) => {
     try {
-        const { email, password } = userData
-        const [user] = await db('users').select('*').where('email', email)
+        const { username, password } = userData
+        const [user] = await db('users').select('*').where('username', username)
 
         if (!user) {
             throw new Error('User not found')
         }
         const isEqualPassword = await comparePassword(password, user.password)
         if (!isEqualPassword) {
-            throw new Error('Email or password not valid')
+            throw new Error('Username or password not valid')
         }
         const payload = {
             id: user.id,
             username: user.username,
-            email,
+            email: user.email,
             role: user.role,
         }
         const token = await createTokens(payload)
@@ -110,8 +110,8 @@ export const updateTokenService = async (refreshToken) => {
 }
 export const forgetPasswordService = async (userData) => {
     try {
-        const { email, id } = userData
-        const [user] = await db('users').select('*').where('email', email)
+        const { email, id, username } = userData
+        const [user] = await db('users').select('*').where('username', username)
         if (!user) {
             throw new Error('User not found')
         }
@@ -152,6 +152,63 @@ export const changePasswordService = async (data, userId) => {
         return { success: true }
     } catch (error) {
         return { success: true, error }
+    }
+}
+
+export const getAllUsersService = async () => {
+    try {
+        const users = await db('users').select('*')
+
+        if (users.length == 0) {
+            throw new Error('Users not found')
+        }
+        return { success: true, users }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
+export const getUserByIdService = async (userId) => {
+    try {
+        const [user] = await db('users').select('*').where('id', userId)
+        if (!user) {
+            throw new Error('User not found')
+        }
+        delete user.password
+        return { success: true, user }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
+export const updateUserByIdService = async (userId, newData) => {
+    try {
+        const [user] = await db('users').select('*').where('id', userId)
+        if (!user) {
+            throw new Error('User not found')
+        }
+        const userPassword = newData?.password
+        if (userPassword) {
+            const hashPassword = await generateHashPassword(userPassword)
+            newData.password = hashPassword
+        }
+        const newUser = await db('users')
+            .where('id', userId)
+            .update(newData)
+            .returning('*')
+        if (!newUser) {
+            throw new Error('Error while updating user')
+        }
+
+        return { success: true, newUser }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
+export const deleteUserByIdService = async (userId) => {
+    try {
+        await db('users').where('id', userId).del()
+        return { success: true }
+    } catch (error) {
+        return { success: false, error }
     }
 }
 

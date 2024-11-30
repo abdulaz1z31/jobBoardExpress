@@ -1,5 +1,6 @@
 export * from './auth.controller.js'
 export * from './user.controller.js'
+export * from './message.controller.js'
 export * from './application.controller.js'
 export * from './company.controller.js'
 export * from './review.controller.js'
