@@ -10,7 +10,8 @@
         "start": "node server.js",
         "start:dev": "node --watch server.js",
         "dev": "nodemon server.js",
-        "migrate": "npx knex migrate:latest"
+        "migrate": "npx knex migrate:latest",
+        "update:table": "npx knex migrate:rollback --all"
     },
     "author": "Team 1",
     "license": "ISC",

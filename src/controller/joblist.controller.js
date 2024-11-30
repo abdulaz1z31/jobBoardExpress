@@ -10,10 +10,7 @@ export const getAllJobListsCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists METHOD: GET`)
         const joblists = await getAllJoblistsService(req.pagination)
-        res.status(statusCode.OK).send({
-            msg: 'OK',
-            Joblists: joblists,
-        })
+        res.status(statusCode.OK).send([...joblists])
     } catch (error) {
         logger.error(
             `Routes: /api/v1/joblists METHOD: GET,Error: ${error.message}`,
@@ -32,8 +29,7 @@ export const getJobListsByIdCon = async (req, res, next) => {
         logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: GET`)
         const joblist = await getJoblistByIdService(req.params.id)
         res.status(statusCode.OK).send({
-            msg: 'OK',
-            Joblist: joblist,
+            ...joblist,
         })
     } catch (error) {
         logger.error(
@@ -53,8 +49,8 @@ export const createJobListCon = async (req, res, next) => {
         logger.info(`Routes: /api/v1/joblists METHOD: POST`)
         const newJoblist = await createJoblistService(req.body)
         res.status(statusCode.CREATED).send({
-            msg: 'NEW JOBLIST',
-            newJoblist: newJoblist,
+            message: 'Job listing created',
+            jobId: newJoblist.id,
         })
     } catch (error) {
         logger.error(
@@ -77,8 +73,8 @@ export const updateJobListCon = async (req, res, next) => {
             req.body,
         )
         res.status(statusCode.OK).send({
-            msg: 'UPDATED JOBLIST',
-            updatedJoblist: updatedJoblist,
+            jobId: updatedJoblist.id,
+            message: 'Job listing updated',
         })
     } catch (error) {
         logger.error(
@@ -96,10 +92,9 @@ export const updateJobListCon = async (req, res, next) => {
 export const deleteJobListCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists/${req.params.id} METHOD: DELETE`)
-        const deletedJoblist = await deleteJoblistService(req.params.id)
+        await deleteJoblistService(req.params.id)
         res.status(statusCode.OK).send({
-            msg: 'DELETED JOBLIST',
-            deletedJoblist: deletedJoblist,
+            message: 'Job listing deleted',
         })
     } catch (error) {
         logger.error(
