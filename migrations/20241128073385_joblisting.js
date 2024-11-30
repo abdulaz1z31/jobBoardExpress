@@ -5,7 +5,7 @@
 export async function up(knex) {
     await knex.schema.createTable('joblisting', function (table) {
         table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'))
-        table.string('title').notNullable().unique()
+        table.string('title').notNullable()
         table.string('description').notNullable()
         table
             .uuid('company_id')

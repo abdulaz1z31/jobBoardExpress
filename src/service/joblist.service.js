@@ -25,18 +25,28 @@ export const getJoblistByIdService = async (id) => {
 export const createJoblistService = async (body) => {
     try {
         const data = await db('joblisting')
-            .insert({ ...body })
+            .insert({
+                ...body,
+                requirements: JSON.stringify(body.requirements),
+                salaryRange: JSON.stringify(body.salaryRange),
+            })
             .returning('*')
+
         checkData(data[0], 'Joblist not created')
         return data[0]
     } catch (error) {
-        throw new Error(error.message)
+        throw new Error(`Failed to create joblist: ${error.message}`)
     }
 }
+
 export const updateJoblistService = async (id, body) => {
     try {
         const data = await db('joblisting')
-            .update({ ...body })
+            .update({
+                ...body,
+                requirements: JSON.stringify(body.requirements),
+                salaryRange: JSON.stringify(body.salaryRange),
+            })
             .where('id', id)
             .returning('*')
         checkData(data[0], 'Joblist not updated')

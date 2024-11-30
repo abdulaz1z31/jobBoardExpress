@@ -6,6 +6,7 @@ import {
     updateJobAlertCon,
     deleteJobAlertCon,
 } from '../controller/index.controller.js'
+import { validationMiddleware } from '../middleware/index.middleware.js'
 export const jobalertRouter = Router()
 jobalertRouter.get('/', getAllJobAlertsCon)
 jobalertRouter.get('/:id', getJobAlertByIdCon)

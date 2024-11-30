@@ -6,6 +6,7 @@ import {
     updateJobListCon,
     deleteJobListCon,
 } from '../controller/index.controller.js'
+import { validationMiddleware } from '../middleware/index.middleware.js'
 export const joblistRouter = Router()
 joblistRouter.get('/', getAllJobListsCon)
 joblistRouter.get('/:id', getJobListsByIdCon)
