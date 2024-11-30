@@ -1,8 +1,8 @@
 import { db } from '../database/index.database.js'
 
-export const getAllCompanyService = async () => {
+export const getAllCompanyService = async ({skip, limit}) => {
     try {
-        const data = await db.select('*').from('companies').returning('*')
+        const data = await db.select('*').from('companies').offset(skip).limit(limit)
         if (!data) {
             throw new Error('Error')
         }

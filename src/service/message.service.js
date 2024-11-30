@@ -21,9 +21,9 @@ export const sendMessageService = async (data, sender) => {
     }
 }
 
-export const getAllMessagesService = async () => {
+export const getAllMessagesService = async ({limit, skip}) => {
     try {
-        const messages = await db('message').select('*')
+        const messages = await db('message').select('*').offset(skip).limit(limit)
         if (messages.length == 0) {
             throw new Error('Messages not found')
         }

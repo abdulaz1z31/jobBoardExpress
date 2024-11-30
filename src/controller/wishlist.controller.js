@@ -9,7 +9,7 @@ import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllWishlistsCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/wishlist METHOD: GET`)
-        const wishlists = await getAllWishlistsService()
+        const wishlists = await getAllWishlistsService(req.pagination)
         res.status(statusCode.OK).send({
             msg: 'OK',
             Wishlists: wishlists,

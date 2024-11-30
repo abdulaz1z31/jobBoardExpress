@@ -7,11 +7,11 @@ import {
     deleteCategoryCon,
 } from '../controller/category.controller.js'
 
-import { validationMiddleware } from '../middleware/index.middleware.js'
+import { pagination, validationMiddleware } from '../middleware/index.middleware.js'
 
 export const categoryRouter = Router()
 
-categoryRouter.get('/', getAllCategoriesCon)
+categoryRouter.get('/', pagination, getAllCategoriesCon)
 categoryRouter.get('/:id', getCategorysByIdCon)
 categoryRouter.post('/', createCategoryCon)
 categoryRouter.put('/:id', updateCategoryCon)

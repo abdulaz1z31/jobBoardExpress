@@ -9,7 +9,7 @@ import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobAlertsCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/jobalert METHOD: GET`)
-        const jobalerts = await getAllJobAlertsService()
+        const jobalerts = await getAllJobAlertsService(req.pagination)
         res.status(statusCode.OK).send({
             msg: 'OK',
             JobAlerts: jobalerts,

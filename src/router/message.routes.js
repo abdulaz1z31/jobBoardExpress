@@ -8,6 +8,7 @@ import {
 } from '../controller/index.controller.js'
 import {
     checkToken,
+    pagination,
     roleGuard,
     validationMiddleware,
 } from '../middleware/index.middleware.js'
@@ -21,7 +22,7 @@ messageRouter.post(
     validationMiddleware(messageSchema),
     sendMessage,
 )
-messageRouter.get('/', checkToken, roleGuard('admin'), getAllMessages)
+messageRouter.get('/', checkToken, roleGuard('admin'), pagination, getAllMessages)
 messageRouter.get('/:id', checkToken, roleGuard('admin'), getMessage)
 messageRouter.put('/:id', checkToken, roleGuard('admin'), updateMessage)
 messageRouter.delete('/:id', checkToken, roleGuard('admin'), deleteMessage)

@@ -6,10 +6,11 @@ import {
     getByIdApplicationController,
     updateIdApplicationController,
 } from '../controller/index.controller.js'
+import { pagination } from '../middleware/index.middleware.js'
 
 export const applicationRouter = Router()
 
-applicationRouter.get('/', getAllApplicationController)
+applicationRouter.get('/', pagination, getAllApplicationController)
 applicationRouter.get('/:id', getByIdApplicationController)
 applicationRouter.post('/create', createApplicationController)
 applicationRouter.put('/update/:id', updateIdApplicationController)

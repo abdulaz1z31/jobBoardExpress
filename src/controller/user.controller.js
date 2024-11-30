@@ -8,7 +8,7 @@ import { statusCode } from '../utils/statuscodes.js'
 
 export const getAllUsers = async (req, res, next) => {
     try {
-        const { error, success, users } = await getAllUsersService()
+        const { error, success, users } = await getAllUsersService(req.pagination)
         if (success) {
             return res.status(statusCode.OK).send({
                 message: 'success',

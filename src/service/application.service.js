@@ -1,8 +1,8 @@
 import { db } from '../database/index.database.js'
 
-export const getAllApplicationService = async () => {
+export const getAllApplicationService = async ({skip, limit}) => {
     try {
-        const data = await db.select('*').from('application').returning('*')
+        const data = await db.select('*').from('application').offset(skip).limit(limit)
         if (!data) {
             throw new Error('Error')
         }

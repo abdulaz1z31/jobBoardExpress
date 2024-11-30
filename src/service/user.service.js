@@ -155,9 +155,9 @@ export const changePasswordService = async (data, userId) => {
     }
 }
 
-export const getAllUsersService = async () => {
+export const getAllUsersService = async ({limit, skip}) => {
     try {
-        const users = await db('users').select('*')
+        const users = await db('users').select('*').offset(skip).limit(limit)
 
         if (users.length == 0) {
             throw new Error('Users not found')

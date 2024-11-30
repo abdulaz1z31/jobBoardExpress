@@ -9,7 +9,7 @@ import {
 export const getAllApplicationController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/application/ METHOD : GET')
-        const currentApplication = await getAllApplicationService()
+        const currentApplication = await getAllApplicationService(req.pagination)
         if (!currentApplication) {
             res.status(404).send('Not Found')
         }

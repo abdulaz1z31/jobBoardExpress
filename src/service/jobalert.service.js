@@ -4,9 +4,9 @@ function checkData(data, errorMessage) {
         throw new Error(errorMessage)
     }
 }
-export const getAllJobAlertsService = async () => {
+export const getAllJobAlertsService = async ({skip, limit}) => {
     try {
-        const data = await db.select('*').from('jobalert')
+        const data = await db.select('*').from('jobalert').offset(skip).limit(limit)
         checkData(data, 'Jobalert not found')
         return data
     } catch (error) {

@@ -9,7 +9,7 @@ import { logger } from '../utils/index.utils.js'
 export const getAllReviewController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/review/ METHOD : GET')
-        const currentReview = await getAllReviewService()
+        const currentReview = await getAllReviewService(req.pagination)
         if (!currentReview) {
             return res.status(404).send('Not found!!!')
         }

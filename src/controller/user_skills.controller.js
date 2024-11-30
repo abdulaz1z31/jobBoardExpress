@@ -28,7 +28,7 @@ export const createUserSkill = async (req, res, next) => {
 
 export const getAllUserSkills = async (req, res, next) => {
     try {
-        const { success, error, userSkills } = await getAllUserSkillsService()
+        const { success, error, userSkills } = await getAllUserSkillsService(req.pagination)
         if (success) {
             return res.status(statusCode.OK).send({
                 message: 'Success',

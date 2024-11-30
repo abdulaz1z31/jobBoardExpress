@@ -9,7 +9,7 @@ import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobListsCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists METHOD: GET`)
-        const joblists = await getAllJoblistsService()
+        const joblists = await getAllJoblistsService(req.pagination)
         res.status(statusCode.OK).send({
             msg: 'OK',
             Joblists: joblists,

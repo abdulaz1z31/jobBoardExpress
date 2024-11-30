@@ -32,7 +32,7 @@ export const createSkill = async (req, res, next) => {
 
 export const getAllSkills = async (req, res, next) => {
     try {
-        const { success, error, skills } = await getAllSkillsService()
+        const { success, error, skills } = await getAllSkillsService(req.pagination)
 
         if (success) {
             return res.status(statusCode.OK).send({

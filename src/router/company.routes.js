@@ -6,10 +6,11 @@ import {
     getByIdCompanyController,
     updateIdCompanyController,
 } from '../controller/index.controller.js'
+import { pagination } from '../middleware/index.middleware.js'
 
 export const companyRouter = Router()
 
-companyRouter.get('/', getAllCompanyController)
+companyRouter.get('/', pagination, getAllCompanyController)
 companyRouter.get('/:id', getByIdCompanyController)
 companyRouter.post('/create', createCompanyController)
 companyRouter.put('/update/:id', updateIdCompanyController)

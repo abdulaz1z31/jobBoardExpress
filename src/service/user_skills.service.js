@@ -19,9 +19,9 @@ export const createUserSkillService = async (userId, skillId) => {
     }
 }
 
-export const getAllUserSkillsService = async () => {
+export const getAllUserSkillsService = async ({limit, skip}) => {
     try {
-        const userSkills = await db('user_skills').select('*')
+        const userSkills = await db('user_skills').select('*').offset(skip).limit(limit)
         if (!userSkills.length) {
             throw new Error('No user skills found')
         }
