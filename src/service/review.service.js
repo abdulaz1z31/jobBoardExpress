@@ -13,35 +13,37 @@ export const getAllReviewService = async ({skip, limit}) => {
 }
 export const getByIReviewService = async (id) => {
     try {
-        const data = await db
+        const data = await db('review')
             .select('*')
-            .from('review')
-            .returning('*')
-            .where('id', '=', id)
-            .returning('*')
+            .where('id', id)
         if (!data[0]) {
-            throw new Error('Error')
+            throw new Error('Review not found')
         }
         return data[0]
     } catch (error) {
-        throw new Error(error)
+        throw new Error(error);
+        
     }
 }
-export const createReviewService = async (body) => {
+export const createReviewService = async (body, user_id) => {
     try {
-        const newData = await db('review').insert({ ...body })
+        body.user_id = user_id
+        const newData = await db('review').insert({ ...body}).returning('*')        
         if (!newData[0]) {
             throw new Error('Error')
         }
+        return newData
     } catch (error) {
         throw new Error(error)
     }
 }
 export const updateReviewService = async (id, body) => {
     try {
+        const {comment, status, raiting} = body
+        const updatedReview = {comment, status, raiting}
         const updateData = await db('review')
             .where('id', '=', id)
-            .update(body)
+            .update(updatedReview)
             .returning('*')
         if (!updateData[0]) {
             throw new Error('Error')
@@ -53,11 +55,8 @@ export const updateReviewService = async (id, body) => {
 }
 export const deleteReviewService = async (id) => {
     try {
-        const deleteData = await db('review').where('id', '=', id).del()
-        if (!deleteData[0]) {
-            throw new Error('Error')
-        }
-        return deleteData[0]
+        await db('review').where('id', '=', id).del()
+        return true
     } catch (error) {
         throw new Error(error)
     }

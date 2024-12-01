@@ -42,7 +42,10 @@ export const getByIdReviewController = async (req, res, next) => {
 export const createReviewController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/review/create METHOD : POST')
-        const currentReview = await createReviewService(req.body)
+        
+        const currentReview = await createReviewService(req.body, req.user.id)
+        console.log(currentReview);
+        
         if (!currentReview) {
             return res.status(404).send('Not found!!!')
         }
@@ -58,7 +61,7 @@ export const createReviewController = async (req, res, next) => {
 export const updateIdReviewController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/review/update/:id METHOD : PUT')
-        const currentReview = await updateReviewService(req.params.id)
+        const currentReview = await updateReviewService(req.params.id, req.body)
         if (!currentReview) {
             return res.status(404).send('Not found!!!')
         }
@@ -79,8 +82,7 @@ export const deleteReviewController = async (req, res, next) => {
             return res.status(404).send('Not found!!!')
         }
         return res.status(201).send({
-            message: 'Ok',
-            data: currentReview,
+            message: 'Review deleted',
         })
     } catch (error) {
         logger.error('Router /api/v1/review/delete/:id METHOD : DELETE')
