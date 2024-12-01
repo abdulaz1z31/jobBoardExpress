@@ -4,6 +4,8 @@ import {
     createJobAlertService,
     updateJobAlertService,
     deleteJobAlertService,
+    getStatisticsService,
+    getStatisticsByJobIdService,
 } from '../service/index.service.js'
 import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobAlertsCon = async (req, res, next) => {
@@ -112,5 +114,42 @@ export const deleteJobAlertCon = async (req, res, next) => {
             })
         }
         next(error.message)
+    }
+}
+export const getStatistics = async (req, res, next) => {
+    try {
+        const { success, error, allJobs } = await getStatisticsService(
+            req.user.id,
+        )
+        if (success) {
+            return res.status(statusCode.OK).send({
+                message: 'success',
+                yourJobs: allJobs,
+            })
+        }
+        return res.status(statusCode.OK).send({
+            message: 'fail',
+            error: error.message,
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+export const getStatisticsByJobId = async (req, res, next) => {
+    try {
+        const { success, error, num } = await getStatisticsByJobIdService(
+            req.params.id,
+        )
+        if (success) {
+            return res.status(statusCode.OK).send({
+                message: `${num} condidats for this work`,
+            })
+        }
+        return res.status(statusCode.OK).send({
+            message: 'fail',
+            error,
+        })
+    } catch (error) {
+        next(error)
     }
 }

@@ -48,16 +48,18 @@ export const getJobListsByIdCon = async (req, res, next) => {
 }
 export const getJobListsByCategory = async (req, res, next) => {
     try {
-        const {jobs, success, error} = await getJobListsByCategoryService(req.params.id)
+        const { jobs, success, error } = await getJobListsByCategoryService(
+            req.params.id,
+        )
         if (success) {
             return res.status(statusCode.OK).send({
-                message:"success",
-                jobs
+                message: 'success',
+                jobs,
             })
         }
         return res.status(statusCode.BAD_REQUEST).send({
-            message:"fail",
-            error:error.message
+            message: 'fail',
+            error: error.message,
         })
     } catch (error) {
         next(error)

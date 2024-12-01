@@ -58,3 +58,32 @@ export const deleteJobAlertService = async (id) => {
         throw new Error(error.message)
     }
 }
+export const getStatisticsService = async (userId) => {
+    try {
+        const jobs = await db('jobalert').select('*').where('user_id', userId)
+        if (jobs.length < 1) {
+            throw new Error('You have not got work')
+        }
+        const jobsId = []
+        const allJobs = []
+        for (const obj of jobs) {
+            jobsId.push(obj.job_id)
+        }
+        for (const id of jobsId) {
+            const job = await db('joblisting').select('*').where('id', id)
+            allJobs.push(job)
+        }
+        return { success: true, allJobs }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
+export const getStatisticsByJobIdService = async (jobId) => {
+    try {
+        const jobs = await db('jobalert').select('*').where('job_id', jobId)
+        const num = jobs.length
+        return { success: true, num }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
