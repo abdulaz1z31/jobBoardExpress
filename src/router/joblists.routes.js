@@ -9,16 +9,13 @@ import {
 import {
     checkToken,
     pagination,
+    roleGuard,
     validationMiddleware,
 } from '../middleware/index.middleware.js'
 import { joblistingScheme } from '../validations/index.schema.js'
 export const joblistRouter = Router()
-joblistRouter.get('/', pagination, getAllJobListsCon)
-joblistRouter.get('/:id', getJobListsByIdCon)
-joblistRouter.post('/', checkToken, validationMiddleware(joblistingScheme), createJobListCon)
-joblistRouter.put(
-    '/:id',
-    // validationMiddleware(joblistingScheme),
-    updateJobListCon,
-)
-joblistRouter.delete('/:id', deleteJobListCon)
+joblistRouter.get('/', checkToken, pagination, getAllJobListsCon)
+joblistRouter.get('/:id', checkToken,  getJobListsByIdCon)
+joblistRouter.post('/', checkToken,  validationMiddleware(joblistingScheme), createJobListCon)
+joblistRouter.put('/:id',  checkToken, validationMiddleware(joblistingScheme), updateJobListCon)
+joblistRouter.delete('/:id', checkToken, roleGuard('admin'), deleteJobListCon)

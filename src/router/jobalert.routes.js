@@ -6,10 +6,13 @@ import {
     updateJobAlertCon,
     deleteJobAlertCon,
 } from '../controller/index.controller.js'
-import { pagination, validationMiddleware } from '../middleware/index.middleware.js'
+import { checkToken, pagination, roleGuard, validationMiddleware } from '../middleware/index.middleware.js'
+import { jobalertScheme } from '../validations/index.schema.js'
+
 export const jobalertRouter = Router()
-jobalertRouter.get('/', pagination, getAllJobAlertsCon)
-jobalertRouter.get('/:id', getJobAlertByIdCon)
-jobalertRouter.post('/', createJobAlertCon)
-jobalertRouter.put('/:id', updateJobAlertCon)
-jobalertRouter.delete('/:id', deleteJobAlertCon)
+
+jobalertRouter.get('/', checkToken, roleGuard('admin'), pagination, getAllJobAlertsCon)
+jobalertRouter.get('/:id', checkToken, getJobAlertByIdCon)
+jobalertRouter.post('/', checkToken,validationMiddleware(jobalertScheme), createJobAlertCon)
+jobalertRouter.put('/:id', checkToken, updateJobAlertCon)
+jobalertRouter.delete('/:id', checkToken, deleteJobAlertCon)

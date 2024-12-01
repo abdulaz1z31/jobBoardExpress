@@ -35,7 +35,6 @@ export async function up(knex) {
             .notNullable()
         table.jsonb('requirements').notNullable()
         table.enu('status', ['open', 'closed']).defaultTo('open').notNullable()
-        table.uuid('postedBy').notNullable()
         table.timestamps(true, true)
     })
 }
