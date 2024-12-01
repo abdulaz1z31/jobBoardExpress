@@ -29,21 +29,23 @@ export const getJoblistByIdService = async (id) => {
 }
 export const serachJobListService = async (query) => {
     try {
-        const {title} = query;
-        const jobList =await db('joblisting').select('*').where('title', 'ILIKE', `%${title}%`)
-        return {success:true, jobList}
+        const { title } = query
+        const jobList = await db('joblisting')
+            .select('*')
+            .where('title', 'ILIKE', `%${title}%`)
+        return { success: true, jobList }
     } catch (error) {
-        return {success:false, error}
+        return { success: false, error }
     }
 }
 export const createJoblistService = async (body) => {
     try {
         const data = await db('joblisting')
             .insert({
-                ...body
+                ...body,
             })
             .returning('*')
-            
+
         checkData(data[0], 'Joblist not created')
         await sendNotification(data[0])
         return data[0]
@@ -54,18 +56,18 @@ export const createJoblistService = async (body) => {
 export const updateJoblistService = async (id, body) => {
     try {
         const data = await db('joblisting')
-        .update({
-            ...body,
-            requirements: JSON.stringify(body.requirements),
-            salaryRange: JSON.stringify(body.salaryRange),
-        })
-        .where('id', id)
+            .update({
+                ...body,
+                requirements: JSON.stringify(body.requirements),
+                salaryRange: JSON.stringify(body.salaryRange),
+            })
+            .where('id', id)
             .returning('*')
-            checkData(data[0], 'Joblist not updated')
-            return data[0]
-        } catch (error) {
-            throw new Error(error.message)
-        }
+        checkData(data[0], 'Joblist not updated')
+        return data[0]
+    } catch (error) {
+        throw new Error(error.message)
+    }
 }
 export const deleteJoblistService = async (id) => {
     try {
@@ -79,24 +81,23 @@ export const deleteJoblistService = async (id) => {
 
 const sendNotification = async (joblist) => {
     try {
-    const usersId = await db('wishlist as w')
-    .select('w.user_id') 
-    .join('joblisting as j', 'w.company_id', 'j.company_id') 
-    .where('j.id', joblist.id);
-    const emails = []
-    for(const obj of usersId){
-        const userEmail = await db('users').select('email').where('id', obj.user_id)
-        emails.push(userEmail[0].email)
-    }
-    for(const email of emails){
-        await sendMail(
-            email,
-            `Hello, we recommend this job to you`,
-            `<h1>${JSON.stringify(joblist)}</h1>`
-        )
-    }
-    
-    } catch (error) {
-
-    }
+        const usersId = await db('wishlist as w')
+            .select('w.user_id')
+            .join('joblisting as j', 'w.company_id', 'j.company_id')
+            .where('j.id', joblist.id)
+        const emails = []
+        for (const obj of usersId) {
+            const userEmail = await db('users')
+                .select('email')
+                .where('id', obj.user_id)
+            emails.push(userEmail[0].email)
+        }
+        for (const email of emails) {
+            await sendMail(
+                email,
+                `Hello, we recommend this job to you`,
+                `<h1>${JSON.stringify(joblist)}</h1>`,
+            )
+        }
+    } catch (error) {}
 }

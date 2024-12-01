@@ -34,7 +34,6 @@ export const getByIdCompanyController = async (req, res, next) => {
             message: 'Ok',
             data: currentComany,
         })
-
     } catch (error) {
         logger.error('Router /api/v1/company/:id METHOD : GET')
         next(error)
@@ -42,20 +41,22 @@ export const getByIdCompanyController = async (req, res, next) => {
 }
 export const searchCompanyController = async (req, res, next) => {
     try {
-        const {success, companies, error} = await searchCompanyService(req.query)
+        const { success, companies, error } = await searchCompanyService(
+            req.query,
+        )
         if (success && companies.length > 0) {
             return res.status(statusCode.OK).send({
-                message:"success",
-                companies
+                message: 'success',
+                companies,
             })
         } else if (success) {
             return res.status(statusCode.OK).send({
-                messgae:"Companies not found with this query"
+                messgae: 'Companies not found with this query',
             })
         } else {
             return res.status(statusCode.INTERNAL_SERVER_ERROR).send({
-                message:"fail",
-                error
+                message: 'fail',
+                error,
             })
         }
     } catch (error) {
@@ -64,7 +65,7 @@ export const searchCompanyController = async (req, res, next) => {
 }
 export const createCompanyController = async (req, res, next) => {
     try {
-        console.log(req.body);
+        console.log(req.body)
         logger.info('Router /api/v1/company/create METHOD : POST')
         const currentComany = await createCompanyService(req.body)
         if (!currentComany) {
@@ -82,8 +83,11 @@ export const createCompanyController = async (req, res, next) => {
 export const updateIdCompanyController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/company/update/:id METHOD : PUT')
-        const currentComany = await updateCompanyService(req.params.id, req.body)
-        console.log(currentComany);
+        const currentComany = await updateCompanyService(
+            req.params.id,
+            req.body,
+        )
+        console.log(currentComany)
         if (!currentComany) {
             return res.status(404).send('Not found!!!')
         }

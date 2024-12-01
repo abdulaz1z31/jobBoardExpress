@@ -47,20 +47,22 @@ export const getJobListsByIdCon = async (req, res, next) => {
 }
 export const serachJobListCon = async (req, res, next) => {
     try {
-        const {success, error, jobList} = await serachJobListService(req.query)
+        const { success, error, jobList } = await serachJobListService(
+            req.query,
+        )
         if (success && jobList.length > 0) {
             return res.status(statusCode.OK).send({
-                message:"success",
-                jobList
+                message: 'success',
+                jobList,
             })
         } else if (success) {
             return res.status(statusCode.OK).send({
-                message:"Jobs not found with this query"
+                message: 'Jobs not found with this query',
             })
         }
         return res.status(statusCode.INTERNAL_SERVER_ERROR).send({
-            message:"fail",
-            error
+            message: 'fail',
+            error,
         })
     } catch (error) {
         next(error)
@@ -70,7 +72,7 @@ export const createJobListCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists METHOD: POST`)
         const newJoblist = await createJoblistService(req.body)
-        
+
         res.status(statusCode.CREATED).send({
             message: 'Job listing created',
             jobId: newJoblist.id,

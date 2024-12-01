@@ -2,9 +2,10 @@ import { db } from '../database/knex.js'
 
 export const createUserSkillService = async (user_id, skill_id) => {
     try {
-        
         const [user] = await db('users').select('*').where('id', '=', user_id)
-        const [skill] = await db('skills').select('*').where('id', '=', skill_id)
+        const [skill] = await db('skills')
+            .select('*')
+            .where('id', '=', skill_id)
 
         if (!user) {
             throw new Error('User not found')

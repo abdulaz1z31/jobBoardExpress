@@ -27,7 +27,9 @@ export const sendMessage = async (req, res, next) => {
 }
 export const getAllMessages = async (req, res, next) => {
     try {
-        const { success, error, messages } = await getAllMessagesService(req.pagination)
+        const { success, error, messages } = await getAllMessagesService(
+            req.pagination,
+        )
         if (success) {
             return res.status(statusCode.OK).send({
                 message: 'success',
@@ -44,7 +46,9 @@ export const getAllMessages = async (req, res, next) => {
 }
 export const getMessage = async (req, res, next) => {
     try {
-        const { success, error, message } = await getMessageService(req.params.id)
+        const { success, error, message } = await getMessageService(
+            req.params.id,
+        )
         if (success) {
             return res.status(statusCode.OK).send({
                 message: 'success',

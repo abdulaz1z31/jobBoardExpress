@@ -4,9 +4,13 @@ function checkData(data, errorMessage) {
         throw new Error(errorMessage)
     }
 }
-export const getAllCategoriesService = async ({skip, limit}) => {
+export const getAllCategoriesService = async ({ skip, limit }) => {
     try {
-        const data = await db.select('*').from('categories').offset(skip).limit(limit)
+        const data = await db
+            .select('*')
+            .from('categories')
+            .offset(skip)
+            .limit(limit)
         checkData(data, 'Categorys not found')
         return data
     } catch (error) {

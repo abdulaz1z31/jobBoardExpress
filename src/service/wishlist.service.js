@@ -4,12 +4,17 @@ function checkData(data, errorMessage) {
         throw new Error(errorMessage)
     }
 }
-export const getAllWishlistsService = async ({skip, limit}) => {
+export const getAllWishlistsService = async ({ skip, limit }) => {
     try {
-        const data = await db.select('*').from('wishlist').offset(skip).limit(limit)
+        const data = await db
+            .select('*')
+            .from('wishlist')
+            .offset(skip)
+            .limit(limit)
         checkData(data, 'Wishlists not found')
         return data
-    } catch (error) {``
+    } catch (error) {
+        ;``
         throw new Error(error.message)
     }
 }

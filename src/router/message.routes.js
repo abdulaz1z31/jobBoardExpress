@@ -22,7 +22,13 @@ messageRouter.post(
     validationMiddleware(messageSchema),
     sendMessage,
 )
-messageRouter.get('/', checkToken, roleGuard('admin'), pagination, getAllMessages)
+messageRouter.get(
+    '/',
+    checkToken,
+    roleGuard('admin'),
+    pagination,
+    getAllMessages,
+)
 messageRouter.get('/:id', checkToken, roleGuard('admin'), getMessage)
 messageRouter.put('/:id', checkToken, roleGuard('admin'), updateMessage)
 messageRouter.delete('/:id', checkToken, roleGuard('admin'), deleteMessage)

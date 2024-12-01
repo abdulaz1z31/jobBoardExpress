@@ -9,7 +9,9 @@ import { statusCode } from '../utils/statuscodes.js'
 
 export const getAllUsers = async (req, res, next) => {
     try {
-        const { error, success, users } = await getAllUsersService(req.pagination)
+        const { error, success, users } = await getAllUsersService(
+            req.pagination,
+        )
         if (success) {
             return res.status(statusCode.OK).send({
                 message: 'success',
@@ -27,20 +29,20 @@ export const getAllUsers = async (req, res, next) => {
 
 export const searchUser = async (req, res, next) => {
     try {
-        const {users, error, success} = await searchUserService(req.query)
+        const { users, error, success } = await searchUserService(req.query)
         if (success && users) {
             return res.status(statusCode.OK).send({
-                message:"success",
-                users
+                message: 'success',
+                users,
             })
         } else if (success) {
             return res.status(statusCode.OK).send({
-                message:"User not foun with this query"
+                message: 'User not foun with this query',
             })
         } else {
             return res.stataus(statusCode.INTERNAL_SERVER_ERROR).send({
-                message:"fail",
-                error
+                message: 'fail',
+                error,
             })
         }
     } catch (error) {

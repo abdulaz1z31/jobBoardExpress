@@ -1,8 +1,12 @@
 import { db } from '../database/index.database.js'
 
-export const getAllCompanyService = async ({skip, limit}) => {
+export const getAllCompanyService = async ({ skip, limit }) => {
     try {
-        const data = await db.select('*').from('companies').offset(skip).limit(limit)
+        const data = await db
+            .select('*')
+            .from('companies')
+            .offset(skip)
+            .limit(limit)
         if (!data) {
             throw new Error('Error')
         }
@@ -25,13 +29,15 @@ export const getByICompanyService = async (id) => {
 }
 export const searchCompanyService = async (query) => {
     try {
-        const {name} = query;
-        console.log(name);
-        
-        const companies = await  db('companies').select('*').where('name', 'ILIKE', `%${name}%`)
-        return {success:true, companies}
+        const { name } = query
+        console.log(name)
+
+        const companies = await db('companies')
+            .select('*')
+            .where('name', 'ILIKE', `%${name}%`)
+        return { success: true, companies }
     } catch (error) {
-        return {success:false, error}
+        return { success: false, error }
     }
 }
 export const createCompanyService = async (body) => {

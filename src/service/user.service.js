@@ -155,7 +155,7 @@ export const changePasswordService = async (data, userId) => {
     }
 }
 
-export const getAllUsersService = async ({limit, skip}) => {
+export const getAllUsersService = async ({ limit, skip }) => {
     try {
         const users = await db('users').select('*').offset(skip).limit(limit)
 
@@ -169,14 +169,16 @@ export const getAllUsersService = async ({limit, skip}) => {
 }
 export const searchUserService = async (query) => {
     try {
-        const {username} = query;
-        const users = await db('users').select('*').where('username', 'ILIKE', `%${username}%`)
+        const { username } = query
+        const users = await db('users')
+            .select('*')
+            .where('username', 'ILIKE', `%${username}%`)
         if (users.length == 0) {
-            return {success: true}
+            return { success: true }
         }
-        return {success:true, users}
+        return { success: true, users }
     } catch (error) {
-        return {success:true, error}
+        return { success: true, error }
     }
 }
 export const getUserByIdService = async (userId) => {

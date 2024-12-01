@@ -11,13 +11,10 @@ export const joblistingScheme = z.object({
             min: z.number().nonnegative(),
             max: z.number().nonnegative(),
         })
-        .refine(
-            (data) => data.max >= data.min,
-            {
-                message: 'Max must be greater than or equal to Min',
-                path: ['max'],
-            }
-        ),
+        .refine((data) => data.max >= data.min, {
+            message: 'Max must be greater than or equal to Min',
+            path: ['max'],
+        }),
     employmentType: z.enum([
         'full_time',
         'part_time',
