@@ -7,6 +7,7 @@ import {
     getStatisticsService,
     getStatisticsByJobIdService,
 } from '../service/index.service.js'
+
 import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobAlertsCon = async (req, res, next) => {
     try {
