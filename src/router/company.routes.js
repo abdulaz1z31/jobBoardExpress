@@ -4,6 +4,7 @@ import {
     deleteCompanyController,
     getAllCompanyController,
     getByIdCompanyController,
+    searchCompanyController,
     updateIdCompanyController,
 } from '../controller/index.controller.js'
 import { checkToken, pagination, validationMiddleware } from '../middleware/index.middleware.js'

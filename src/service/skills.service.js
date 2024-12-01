@@ -14,7 +14,7 @@ export const createSkillService = async ({ name, category_id }) => {
     }
 }
 
-export const getAllSkillsService = async ({skip, limit}) => {
+export const getAllSkillsService = async ({ skip, limit }) => {
     try {
         const skills = await db('skills').select('*').offset(skip).limit(limit)
         if (skills.length === 0) {

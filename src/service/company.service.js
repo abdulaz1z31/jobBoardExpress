@@ -23,9 +23,13 @@ export const getByICompanyService = async (id) => {
         throw new Error(error)
     }
 }
-export const searchCompanyService = async () => {
+export const searchCompanyService = async (query) => {
     try {
+        const {name} = query;
+        console.log(name);
         
+        const companies = await  db('companies').select('*').where('name', 'ILIKE', `%${name}%`)
+        return {success:true, companies}
     } catch (error) {
         return {success:false, error}
     }
@@ -44,13 +48,6 @@ export const createCompanyService = async (body) => {
         throw new Error(error)
     }
 }
-export const sendNotificatonUser = async () => {
-    try {
-       //bunga biriktirilgan category_id orqli userga borib shu userga xat 
-    } catch (error) {
-        return {isSended:false, error}
-    }
-}
 export const updateCompanyService = async (id, body) => {
     try {
         const data = await db('companies')
@@ -60,7 +57,6 @@ export const updateCompanyService = async (id, body) => {
         if (!data[0]) {
             throw new Error('Error')
         }
-        // console.log(data);
         return data
     } catch (error) {
         throw new Error(error)

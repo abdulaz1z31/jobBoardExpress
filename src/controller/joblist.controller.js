@@ -4,6 +4,7 @@ import {
     createJoblistService,
     updateJoblistService,
     deleteJoblistService,
+    serachJobListService,
 } from '../service/index.service.js'
 import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobListsCon = async (req, res, next) => {
@@ -44,10 +45,23 @@ export const getJobListsByIdCon = async (req, res, next) => {
         next(error.message)
     }
 }
-export const serachJobListCon = async () => {
+export const serachJobListCon = async (req, res, next) => {
     try {
-        //serach qilganda kop roq uziga moslari kelishi kk yana ham koramiz
-        // defaul titile boyich querydan <<&category=it>> <<salary>100>>
+        const {success, error, jobList} = await serachJobListService(req.query)
+        if (success && jobList.length > 0) {
+            return res.status(statusCode.OK).send({
+                message:"success",
+                jobList
+            })
+        } else if (success) {
+            return res.status(statusCode.OK).send({
+                message:"Jobs not found with this query"
+            })
+        }
+        return res.status(statusCode.INTERNAL_SERVER_ERROR).send({
+            message:"fail",
+            error
+        })
     } catch (error) {
         next(error)
     }
