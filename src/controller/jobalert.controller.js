@@ -8,8 +8,7 @@ import {
     getStatisticsByJobIdService,
 } from '../service/index.service.js'
 
-
-import     { logger, statusCode } from '../utils/index.utils.js'
+import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobAlertsCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/jobalert METHOD: GET`)
