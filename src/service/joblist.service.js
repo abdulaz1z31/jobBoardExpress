@@ -78,19 +78,23 @@ export const deleteJoblistService = async (id) => {
         throw new Error(error.message)
     }
 }
-export const getJobListsByCategoryService = async(categoryId) => {
+export const getJobListsByCategoryService = async (categoryId) => {
     try {
-        const category = await db('categories').select('*').where('id', categoryId)
+        const category = await db('categories')
+            .select('*')
+            .where('id', categoryId)
         if (category.length < 1) {
-            throw new Error("Category not found");
-        } 
-        const jobs = await db('joblisting').select('*').where('category_id', categoryId) 
-        if (jobs.length < 1) {
-            throw new Error("Jobs in this category not found");
+            throw new Error('Category not found')
         }
-        return {success:true, jobs}
+        const jobs = await db('joblisting')
+            .select('*')
+            .where('category_id', categoryId)
+        if (jobs.length < 1) {
+            throw new Error('Jobs in this category not found')
+        }
+        return { success: true, jobs }
     } catch (error) {
-        return {success:false, error}
+        return { success: false, error }
     }
 }
 const sendNotification = async (joblist) => {

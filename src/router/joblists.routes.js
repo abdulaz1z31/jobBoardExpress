@@ -17,7 +17,12 @@ import {
 import { joblistingScheme } from '../validations/index.schema.js'
 export const joblistRouter = Router()
 joblistRouter.get('/', checkToken, pagination, getAllJobListsCon)
-joblistRouter.get('/category/:id', checkToken, pagination, getJobListsByCategory)
+joblistRouter.get(
+    '/category/:id',
+    checkToken,
+    pagination,
+    getJobListsByCategory,
+)
 joblistRouter.get('/search', checkToken, pagination, serachJobListCon)
 joblistRouter.get('/:id', checkToken, getJobListsByIdCon)
 joblistRouter.post(
