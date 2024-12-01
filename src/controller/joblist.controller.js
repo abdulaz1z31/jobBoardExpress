@@ -5,6 +5,7 @@ import {
     updateJoblistService,
     deleteJoblistService,
     serachJobListService,
+    getJobListsByCategoryService,
 } from '../service/index.service.js'
 import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllJobListsCon = async (req, res, next) => {
@@ -43,6 +44,23 @@ export const getJobListsByIdCon = async (req, res, next) => {
             })
         }
         next(error.message)
+    }
+}
+export const getJobListsByCategory = async (req, res, next) => {
+    try {
+        const {jobs, success, error} = await getJobListsByCategoryService(req.params.id)
+        if (success) {
+            return res.status(statusCode.OK).send({
+                message:"success",
+                jobs
+            })
+        }
+        return res.status(statusCode.BAD_REQUEST).send({
+            message:"fail",
+            error:error.message
+        })
+    } catch (error) {
+        next(error)
     }
 }
 export const serachJobListCon = async (req, res, next) => {
