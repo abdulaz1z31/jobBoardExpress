@@ -4,14 +4,17 @@ import {
     deleteCompanyController,
     getAllCompanyController,
     getByIdCompanyController,
+    searchCompanyController,
     updateIdCompanyController,
 } from '../controller/index.controller.js'
-import { pagination } from '../middleware/index.middleware.js'
+import { checkToken, pagination, validationMiddleware } from '../middleware/index.middleware.js'
+import { companiesSchema } from '../validations/companies.schema.js'
 
 export const companyRouter = Router()
 
-companyRouter.get('/', pagination, getAllCompanyController)
-companyRouter.get('/:id', getByIdCompanyController)
-companyRouter.post('/', createCompanyController)
-companyRouter.put('/:id', updateIdCompanyController)
-companyRouter.delete('/:id', deleteCompanyController)
+companyRouter.get('/', checkToken, pagination, getAllCompanyController)
+companyRouter.get('/search', checkToken, pagination, searchCompanyController)
+companyRouter.get('/:id', checkToken, getByIdCompanyController)
+companyRouter.post('/', checkToken, validationMiddleware(companiesSchema),createCompanyController)
+companyRouter.put('/:id', checkToken, updateIdCompanyController)
+companyRouter.delete('/:id', checkToken, deleteCompanyController)

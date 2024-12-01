@@ -3,9 +3,10 @@ import {
     deleteCompanyService,
     getAllCompanyService,
     getByICompanyService,
+    searchCompanyService,
     updateCompanyService,
 } from '../service/index.service.js'
-import { logger } from '../utils/index.utils.js'
+import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllCompanyController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/company/ METHOD : GET')
@@ -36,6 +37,28 @@ export const getByIdCompanyController = async (req, res, next) => {
 
     } catch (error) {
         logger.error('Router /api/v1/company/:id METHOD : GET')
+        next(error)
+    }
+}
+export const searchCompanyController = async (req, res, next) => {
+    try {
+        const {success, companies, error} = await searchCompanyService(req.query)
+        if (success && companies.length > 0) {
+            return res.status(statusCode.OK).send({
+                message:"success",
+                companies
+            })
+        } else if (success) {
+            return res.status(statusCode.OK).send({
+                messgae:"Companies not found with this query"
+            })
+        } else {
+            return res.status(statusCode.INTERNAL_SERVER_ERROR).send({
+                message:"fail",
+                error
+            })
+        }
+    } catch (error) {
         next(error)
     }
 }

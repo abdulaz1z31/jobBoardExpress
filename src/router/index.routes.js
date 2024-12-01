@@ -1,16 +1,18 @@
 import { Router } from 'express'
-import { authRouter } from './auth.routes.js'
-import { userRouter } from './user.routes.js'
-import { messageRouter } from './message.routes.js'
-import { applicationRouter } from './application.routes.js'
-import { companyRouter } from './company.routes.js'
-import { reviewRouter } from './review.routes.js'
-import { jobalertRouter } from './jobalert.routes.js'
-import { joblistRouter } from './joblists.routes.js'
-import { categoryRouter } from './category.routes.js'
-import { wishlistRouter } from './wishlist.routes.js'
-import { skillsRouter } from './skills.routes.js'
-import { userSkillsRouter } from './user_skills.routes.js'
+import {
+    applicationRouter,
+    authRouter,
+    categoryRouter,
+    companyRouter,
+    jobalertRouter,
+    joblistRouter,
+    messageRouter,
+    reviewRouter,
+    skillsRouter,
+    userRouter,
+    userSkillsRouter,
+    wishlistRouter,
+} from './routes.js'
 
 export const router = Router()
 
