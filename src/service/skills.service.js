@@ -2,7 +2,7 @@ import { db } from '../database/knex.js'
 
 export const createSkillService = async ({ name, category_id }) => {
     try {
-        const category = await db('category').where('id', category_id).first()
+        const category = await db('categories').where('id', category_id).first()
         if (!category) {
             throw new Error('Category not found')
         }
@@ -42,7 +42,7 @@ export const getSkillService = async (skillId) => {
 
 export const updateSkillService = async (skillId, { name, category_id }) => {
     try {
-        const category = await db('category').where('id', category_id).first()
+        const category = await db('categories').where('id', category_id).first()
         if (!category) {
             throw new Error('Category not found')
         }

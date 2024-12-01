@@ -8,10 +8,12 @@ import {
 import { statusCode } from '../utils/statuscodes.js'
 
 export const createUserSkill = async (req, res, next) => {
-    try {
-        const { userId, skillId } = req.body
-        const { success, error } = await createUserSkillService(userId, skillId)
+    try {  
+        const { user_id, skill_id } = req.body
+        const { success, error } = await createUserSkillService(user_id, skill_id)
 
+        
+        
         if (success) {
             return res.status(statusCode.CREATED).send({
                 message: 'User skill added successfully',

@@ -1,9 +1,10 @@
 import { db } from '../database/knex.js'
 
-export const createUserSkillService = async (userId, skillId) => {
+export const createUserSkillService = async (user_id, skill_id) => {
     try {
-        const [user] = await db('users').where({ id: userId })
-        const [skill] = await db('skills').where({ id: skillId })
+        
+        const [user] = await db('users').select('*').where('id', '=', user_id)
+        const [skill] = await db('skills').select('*').where('id', '=', skill_id)
 
         if (!user) {
             throw new Error('User not found')
@@ -12,16 +13,19 @@ export const createUserSkillService = async (userId, skillId) => {
             throw new Error('Skill not found')
         }
 
-        await db('user_skills').insert({ user_id: userId, skill_id: skillId })
+        await db('user_skills').insert({ user_id, skill_id })
         return { success: true }
     } catch (error) {
         return { success: false, error }
     }
 }
 
-export const getAllUserSkillsService = async ({limit, skip}) => {
+export const getAllUserSkillsService = async ({ limit, skip }) => {
     try {
-        const userSkills = await db('user_skills').select('*').offset(skip).limit(limit)
+        const userSkills = await db('user_skills')
+            .select('*')
+            .offset(skip)
+            .limit(limit)
         if (!userSkills.length) {
             throw new Error('No user skills found')
         }
