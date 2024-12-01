@@ -5,15 +5,17 @@ import {
     getByIdApplicationService,
     updateApplicationService,
 } from '../service/index.service.js'
-
+import { logger, statusCode } from '../utils/index.utils.js'
 export const getAllApplicationController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/application/ METHOD : GET')
-        const currentApplication = await getAllApplicationService(req.pagination)
+        const currentApplication = await getAllApplicationService(
+            req.pagination,
+        )
         if (!currentApplication) {
-            res.status(404).send('Not Found')
+            res.status(statusCode.NOT_FOUND).send('Not Found')
         }
-        return res.status(201).send({
+        return res.status(statusCode.OK).send({
             message: 'Ok',
             data: currentApplication,
         })
@@ -29,9 +31,9 @@ export const getByIdApplicationController = async (req, res, next) => {
             req.params.id,
         )
         if (!currentApplication) {
-            res.status(404).send('Not Found')
+            res.status(statusCode.NOT_FOUND).send('Not Found')
         }
-        return res.status(201).send({
+        return res.status(statusCode.OK).send({
             message: 'Ok',
             data: currentApplication,
         })
@@ -45,10 +47,10 @@ export const createApplicationController = async (req, res, next) => {
         logger.info('Router /api/v1/application/create METHOD : POST')
         const currentApplication = await createApplicationService(req.body)
         if (!currentApplication) {
-            res.status(404).send('Not Found')
+            res.status(statusCode.BAD_REQUEST).send('Not Found')
         }
-        return res.status(201).send({
-            message: 'Ok',
+        return res.status(statusCode.CREATED).send({
+            message: 'CREATED',
             data: currentApplication,
         })
     } catch (error) {
@@ -59,12 +61,15 @@ export const createApplicationController = async (req, res, next) => {
 export const updateIdApplicationController = async (req, res, next) => {
     try {
         logger.info('Router /api/v1/application/update/:id METHOD : PUT')
-        const currentApplication = await updateApplicationService(req.params.id)
+        const currentApplication = await updateApplicationService(
+            req.params.id,
+            req.body,
+        )
         if (!currentApplication) {
-            res.status(404).send('Not Found')
+            res.status(statusCode.NOT_FOUND).send('Not Found')
         }
-        return res.status(201).send({
-            message: 'Ok',
+        return res.status(statusCode.OK).send({
+            message: 'UPDATED',
             data: currentApplication,
         })
     } catch (error) {
@@ -78,10 +83,10 @@ export const deleteApplicationController = async (req, res, next) => {
         const currentApplication = await deleteApplicationService(req.params.id)
 
         if (!currentApplication) {
-            res.status(404).send('Not Found')
+            res.status(statusCode.NOT_FOUND).send('Not Found')
         }
-        return res.status(201).send({
-            message: 'Ok',
+        return res.status(statusCode.OK).send({
+            message: 'DELETED',
             data: currentApplication,
         })
     } catch (error) {
