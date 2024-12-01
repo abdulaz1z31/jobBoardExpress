@@ -14,7 +14,6 @@ import {
 } from '../middleware/index.middleware.js'
 import { wishlistScheme } from '../validations/wishlist.schema.js'
 export const wishlistRouter = Router()
-
 wishlistRouter.get(
     '/',
     checkToken,
