@@ -7,12 +7,31 @@ import {
     deleteCategoryCon,
 } from '../controller/category.controller.js'
 
-import { pagination, validationMiddleware } from '../middleware/index.middleware.js'
+import {
+    adminOrSelf,
+    checkToken,
+    pagination,
+    roleGuard,
+    validationMiddleware,
+} from '../middleware/index.middleware.js'
+import { categoriesScheme } from '../validations/categories.scheme.js'
 
 export const categoryRouter = Router()
 
-categoryRouter.get('/', pagination, getAllCategoriesCon)
-categoryRouter.get('/:id', getCategorysByIdCon)
-categoryRouter.post('/', createCategoryCon)
-categoryRouter.put('/:id', updateCategoryCon)
-categoryRouter.delete('/:id', deleteCategoryCon)
+categoryRouter.get(
+    '/',
+    checkToken,
+    roleGuard('admin'),
+    pagination,
+    getAllCategoriesCon,
+)
+categoryRouter.get('/:id', checkToken, roleGuard('admin'), getCategorysByIdCon)
+categoryRouter.post(
+    '/',
+    checkToken,
+    roleGuard('admin'),
+    validationMiddleware(categoriesScheme),
+    createCategoryCon,
+)
+categoryRouter.put('/:id', checkToken, roleGuard('admin'), updateCategoryCon)
+categoryRouter.delete('/:id', checkToken, roleGuard('admin'), deleteCategoryCon)

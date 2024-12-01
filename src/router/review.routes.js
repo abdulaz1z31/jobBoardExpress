@@ -6,12 +6,14 @@ import {
     getByIdReviewController,
     updateIdReviewController,
 } from '../controller/index.controller.js'
-import { pagination } from '../middleware/pagination.js'
+import { adminOrSelf, checkToken, pagination, roleGuard, validationMiddleware } from '../middleware/index.middleware.js'
+import { reviewSchema } from '../validations/review.schema.js'
+
 
 export const reviewRouter = Router()
 
-reviewRouter.get('/', pagination, getAllReviewController)
-reviewRouter.get('/:id', getByIdReviewController)
-reviewRouter.post('/create', createReviewController)
-reviewRouter.put('/update/:id', updateIdReviewController)
-reviewRouter.delete('/delete/:id', deleteReviewController)
+reviewRouter.get('/', checkToken, roleGuard('admin'), pagination, getAllReviewController)
+reviewRouter.get('/:id', checkToken, roleGuard('admin'), getByIdReviewController)
+reviewRouter.post('/', checkToken, validationMiddleware(reviewSchema),createReviewController)
+reviewRouter.put('/:id', checkToken, adminOrSelf('admin'), updateIdReviewController)
+reviewRouter.delete('/:id', checkToken, adminOrSelf('admin'), deleteReviewController)
