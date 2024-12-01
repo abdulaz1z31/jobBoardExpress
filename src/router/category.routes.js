@@ -8,7 +8,6 @@ import {
 } from '../controller/category.controller.js'
 
 import {
-    adminOrSelf,
     checkToken,
     pagination,
     roleGuard,
