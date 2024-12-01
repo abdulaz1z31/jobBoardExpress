@@ -5,6 +5,7 @@ import {
     createJobListCon,
     updateJobListCon,
     deleteJobListCon,
+    serachJobListCon,
 } from '../controller/index.controller.js'
 import {
     checkToken,
@@ -15,6 +16,7 @@ import {
 import { joblistingScheme } from '../validations/index.schema.js'
 export const joblistRouter = Router()
 joblistRouter.get('/', checkToken, pagination, getAllJobListsCon)
+joblistRouter.get('/search', checkToken, pagination, serachJobListCon)
 joblistRouter.get('/:id', checkToken,  getJobListsByIdCon)
 joblistRouter.post('/', checkToken,  validationMiddleware(joblistingScheme), createJobListCon)
 joblistRouter.put('/:id',  checkToken, updateJobListCon)

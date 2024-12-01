@@ -167,6 +167,13 @@ export const getAllUsersService = async ({limit, skip}) => {
         return { success: false, error }
     }
 }
+export const searchUserService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:true, error}
+    }
+}
 export const getUserByIdService = async (userId) => {
     try {
         const [user] = await db('users').select('*').where('id', userId)

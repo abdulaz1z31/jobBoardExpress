@@ -23,6 +23,13 @@ export const getByICompanyService = async (id) => {
         throw new Error(error)
     }
 }
+export const searchCompanyService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
 export const createCompanyService = async (body) => {
     try {
         console.log(body)
@@ -35,6 +42,13 @@ export const createCompanyService = async (body) => {
         return data[0]
     } catch (error) {
         throw new Error(error)
+    }
+}
+export const sendNotificatonUser = async () => {
+    try {
+       //bunga biriktirilgan category_id orqli userga borib shu userga xat 
+    } catch (error) {
+        return {isSended:false, error}
     }
 }
 export const updateCompanyService = async (id, body) => {

@@ -39,6 +39,13 @@ export const getByIdCompanyController = async (req, res, next) => {
         next(error)
     }
 }
+export const searchCompanyController = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
 export const createCompanyController = async (req, res, next) => {
     try {
         console.log(req.body);

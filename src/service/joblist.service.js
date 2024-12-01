@@ -26,6 +26,13 @@ export const getJoblistByIdService = async (id) => {
         throw new Error(error.message)
     }
 }
+export const serachJobListService = async () => {
+    try {
+        
+    } catch (error) {
+        return {success:false, error}
+    }
+}
 export const createJoblistService = async (body) => {
     try {
         const data = await db('joblisting')
@@ -40,7 +47,13 @@ export const createJoblistService = async (body) => {
         throw new Error(`Failed to create joblist: ${error.message}`)
     }
 }
-
+export const sendNotification = async () => {
+    try {
+        //joblist orqli userga referal olib unga sms jonatish
+    } catch (error) {
+        return {isSended:false, error}
+    }
+}
 export const updateJoblistService = async (id, body) => {
     try {
         const data = await db('joblisting')

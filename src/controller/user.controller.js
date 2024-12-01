@@ -23,6 +23,15 @@ export const getAllUsers = async (req, res, next) => {
         next(error)
     }
 }
+
+export const searchUser = async (req, res, next) => {
+    try {
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const getUserById = async (req, res, next) => {
     try {
         const { success, user, error } = await getUserByIdService(req.params.id)

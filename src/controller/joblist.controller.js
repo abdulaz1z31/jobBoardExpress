@@ -44,6 +44,14 @@ export const getJobListsByIdCon = async (req, res, next) => {
         next(error.message)
     }
 }
+export const serachJobListCon = async () => {
+    try {
+        //serach qilganda kop roq uziga moslari kelishi kk yana ham koramiz
+        // defaul titile boyich querydan <<&category=it>> <<salary>100>>
+    } catch (error) {
+        next(error)
+    }
+}
 export const createJobListCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists METHOD: POST`)
