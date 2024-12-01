@@ -47,7 +47,7 @@ export const getJobListsByIdCon = async (req, res, next) => {
 export const createJobListCon = async (req, res, next) => {
     try {
         logger.info(`Routes: /api/v1/joblists METHOD: POST`)
-        const newJoblist = await createJoblistService(req.body)
+        const newJoblist = await createJoblistService({...req.body, postedBy:req.user.id})
         res.status(statusCode.CREATED).send({
             message: 'Job listing created',
             jobId: newJoblist.id,

@@ -30,12 +30,10 @@ export const createJoblistService = async (body) => {
     try {
         const data = await db('joblisting')
             .insert({
-                ...body,
-                requirements: JSON.stringify(body.requirements),
-                salaryRange: JSON.stringify(body.salaryRange),
+                ...body
             })
             .returning('*')
-
+            
         checkData(data[0], 'Joblist not created')
         return data[0]
     } catch (error) {
