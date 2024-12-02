@@ -4,6 +4,7 @@ config()
 export const application = {
     port: process.env.PORT,
     node_env: process.env.NODE_ENV,
+    log_token: process.env.LOGGER_TOKEN,
 }
 
 export const database = {
