@@ -29,6 +29,8 @@
         "prettier": "3.3.3"
     },
     "dependencies": {
+        "@logtail/node": "^0.5.2",
+        "@logtail/winston": "^0.5.2",
         "bcrypt": "^5.1.1",
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
